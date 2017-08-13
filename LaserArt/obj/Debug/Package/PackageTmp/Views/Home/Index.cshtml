@@ -1,0 +1,56 @@
+﻿@model List<LaserArt.Models.Product>
+
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="jumbotron">
+    <div class="container">
+        @if (!Request.Browser.IsMobileDevice)
+        {
+
+        <div class="col-md-3">
+            <img src="~/images/Logo.png" class="mainlogo" />
+        </div>
+        <div class="col-md-9">
+            <div class="w3-content w3-section">
+                <img class="mySlides" src="~/images/box.jpg">
+                <img class="mySlides" src="~/images/Logo.png">
+            </div>
+        </div>
+        }
+        else
+        {
+            <div class="col-md-12">
+                <img src="~/images/Logo.png" class="mainlogo" />
+            </div>
+        }
+    </div>
+</div>
+<div class="container jumbotron">
+    @foreach (var item in Model)
+    {
+        <div class="row product" id="@item.Id" style="border-bottom:1px solid #808080; padding:5px; margin-bottom:20px;">
+            <div class="col-md-4">
+                <p>#@item.Id @item.ProductTitle</p>
+                <p>Price: @item.Price$</p>
+            </div>
+            <div class="col-md-4">
+                @*<p>Description</p>*@
+                @if (item.ProductDescription.Length > 200)
+                {
+                    @item.ProductDescription.Remove(200)
+                    <h>...</h>
+                }
+                else
+                {
+                    @item.ProductDescription
+                }
+            </div>
+            <div class="col-md-4">
+                <img style="width:100%; height:auto;" src="@item.ImageSource" />
+            </div>
+        </div>
+    }
+</div>
+<script src="~/Scripts/carousel.js"></script>

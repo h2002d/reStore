@@ -1,0 +1,27 @@
+﻿@model LaserArt.Models.Product
+
+@{
+    ViewBag.Title =Model.ProductTitle;
+}
+<div class="jumbotron">
+    <h2 class="h1">@Model.ProductTitle</h2>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <img src="@Model.ImageSource" class="imageHeader" />
+            </div>
+            <div class="col-md-6">
+                <hr class="productPagehr">
+                <h2 class="productpageh3">Description</h2>
+                <p>@Model.ProductDescription</p>
+                <hr class="productPagehr">
+                <p> <h class="productpageh3">Price:</h>@Model.Price$</p>
+                @if (@Model.PriceDiscounted != 0)
+                {
+                    <del> @Model.PriceDiscounted</del>
+                }
+                <hr class="productPagehr">
+            </div>
+        </div>
+    </div>
+</div>
