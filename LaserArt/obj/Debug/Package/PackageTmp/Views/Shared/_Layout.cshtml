@@ -3,44 +3,72 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - LaserArt</title>
+    <title>@ViewBag.Title - re:Store Family</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Laser Art", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+    <div>
+        <div class="row">
+            <div class="col-sm-3">
+                <div class="sidebar-nav">
+                    <div class="navbar navbar-default" role="navigation">
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-navbar-collapse">
+                                <span class="sr-only"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                            <span class="visible-xs navbar-brand">Sidebar menu</span>
+                        </div>
+                        <div class="navbar-collapse collapse sidebar-navbar-collapse">
+                            <ul class="nav navbar-nav">
+                                <ul class="nav navbar-nav">
+                                    <li>@Html.ActionLink("Главная", "Index", "Home")</li>
+                                    @foreach (var item in ViewBag.Categories)
+                                    {
+                                        <li><a href="/home/category/@item.Id">@item.CategoryName</a></li>
+                                    }
+                                    <li>@Html.ActionLink("О нас", "About", "Home")</li>
+                                    <li>@Html.ActionLink("Связь", "Contact", "Home")</li>
+                                    @if (Request.Cookies["Cart"] != null)
+                                    {
+                                        HttpCookie cookieOld = Request.Cookies["Cart"];
+
+                                        var value = cookieOld.Value;
+                                        var idList = Newtonsoft.Json.JsonConvert.DeserializeObject
+                                        <List<int>>(value);
+                                        ViewBag.CardCount = idList.Count;
+                                    }
+                                    <li> <a href="/home/card">Корзина <u>@ViewBag.CardCount</u> шт.</a></li>
+
+                                    @if (this.User.IsInRole("Administrator"))
+                                    {
+                                        <li>@Html.ActionLink("Добавит продукт", "CreateProduct", "Home")</li>
+                                        <li>@Html.ActionLink("Добавит Категорию", "CreateCategory", "Home")</li>
+                                        <li>@Html.ActionLink("Заказы", "Order", "Admin")</li>
+
+                                    }
+                                </ul>
+                            </ul>
+                        </div><!--/.nav-collapse -->
+                    </div>
+                </div>
             </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li><a href="/home/category/1">Box</a></li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                    @if (this.User.IsInRole("Administrator"))
-                    {
-                        <li>@Html.ActionLink("Add Product", "CreateProduct", "Home")</li>
-                    }
-                </ul>
-                @Html.Partial("_LoginPartial")
+            <div class="col-sm-9">
+                <div class="container body-content">
+                    @RenderBody()
+                   
+                </div>
             </div>
         </div>
     </div>
-    <div class="container body-content">
-        @RenderBody()
-        <hr  style="border-top:1px solid #000000 !important;"/>
-        <footer>
-            <p>&copy; @DateTime.Now.Year - LaserArt Powered by <a href="https://www.facebook.com/novir">Novir+</a></p>
-        </footer>
-    </div>
+    <hr style="border-top:1px solid #000000 !important;" />
+    <footer>
+        <p>&copy; @DateTime.Now.Year - re:store-family Powered by <a href="https://www.facebook.com/novir">Novir+</a></p>
+    </footer>
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
@@ -50,7 +78,83 @@
         $('.product').click(function () {
             window.location="/home/product/"+$(this).attr('id');
         });
-    });
+        $('.adminOrderRow').click(function () {
+            window.location = "/admin/orderdetails/?OrderId=" + $(this).attr('id');
+        });
+        $('.removeCard').click(function () {
+            var id = $(this).attr('id');
+            $.ajax({
+                url: "/Home/RemoveCard/" +id ,
+                type: "POST",
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    //code after success
+                    console.log('#' +id + 'itemCard');
+                    $('#' + id + 'itemCard').remove();
+
+                },
+                error: function (er) {
+
+                    alert(er.responseText);
+                }
+
+            });
+        });
+        $("#fileUpload").click(function () {
+            var data = new FormData();
+            var files = $("#uploadEditorImage").get(0).files;
+            if (files.length > 0) {
+                data.append("HttpPostedFileBase", files[0]);
+                $('#ImageSource').val('/images/'+files[0].name)
+            }
+                //.val('/images/' + files[0].name);
+            $.ajax({
+                url: "/Home/FileUpload/",
+                type: "POST",
+                processData: false,
+                contentType: false,
+                data: data,
+                success: function (response) {
+                    //code after success
+                    alert(response)
+                },
+                error: function (er) {
+                   
+                    alert(er.responseText);
+                }
+
+            });
+        });
+        });
+        function goToDetails() {
+
+
+            window.location = "/home/orderDetails" + $('#listInt').val();
+        }
+        function orderBtnClick() {
+            window.location = "/home/order";
+        }
+        function orderBtnClickItem(itemId) {
+            window.location = "/home/order" + itemId;
+        }
+        function addToCard(itemId) {
+            $.ajax({
+                url: "/Home/AddToCard/"+itemId,
+                type: "POST",
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    //code after success
+                    alert(response)
+                },
+                error: function (er) {
+
+                    alert(er.responseText);
+                }
+
+            });
+        }
     </script>
 </body>
 </html>

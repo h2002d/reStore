@@ -1,5 +1,5 @@
 ﻿body {
-    padding-top: 50px;
+    /*padding-top: 50px;*/
     padding-bottom: 20px;
     background: url("../images/backgroundBlur.jpg") no-repeat center center fixed;
     -webkit-background-size: cover;
@@ -7,7 +7,27 @@
     -o-background-size: cover;
     background-size: cover;
 }
+@media (min-width: 768px) {
+    .sidebar-nav .navbar .navbar-collapse {
+        padding: 0;
+        max-height: none;
+    }
 
+    .sidebar-nav .navbar ul {
+        float: none;
+        display: block;
+    }
+
+    .sidebar-nav .navbar li {
+        float: none;
+        display: block;
+    }
+
+        .sidebar-nav .navbar li a {
+            padding-top: 12px;
+            padding-bottom: 12px;
+        }
+}
 /* Set padding to keep content from hitting the edges */
 .body-content {
     padding-left: 15px;
@@ -38,11 +58,13 @@ textarea {
 }
 .mySlides {
     display: none;
-    width:100%;
-    height:auto;
-    max-height:300px;
+   
 }
-
+.myslideImage {
+    width: 100%;
+    height: auto;
+    max-height: 300px;
+}
 .w3-content .w3-section {
     width: 100%;
 }
@@ -56,4 +78,19 @@ textarea {
 .product{
     float:left;
    
+}
+.orderItem{
+    border: 1px solid #808080;
+    margin-bottom:5px;
+    padding:5px;
+    }
+.btn-accept-order{
+
+}
+
+.jumbotron{
+    background-color:#ffffff !important;
+}
+.adminOrderRow{
+    cursor:pointer;
 }

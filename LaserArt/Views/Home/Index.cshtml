@@ -4,7 +4,7 @@
     ViewBag.Title = "Home Page";
 }
 
-<div class="jumbotron">
+<div class="jumbotron" style="padding:0 !important;">
     <div class="container">
         @if (!Request.Browser.IsMobileDevice)
         {
@@ -14,8 +14,13 @@
         </div>
         <div class="col-md-9">
             <div class="w3-content w3-section">
-                <img class="mySlides" src="~/images/box.jpg">
-                <img class="mySlides" src="~/images/Logo.png">
+                @foreach (var item in ViewBag.Sales)
+                {
+                    <a class="mySlides" href="@item.link">
+                        <img  class="myslideImage" src="@item.image">
+                    </a>
+                }
+              
             </div>
         </div>
         }
@@ -27,7 +32,11 @@
         }
     </div>
 </div>
-<div class="container jumbotron">
+<div class="container jumbotron" style="padding-top:5px !important;">
+    <div class="row" align="right">
+        <input type="text" class="form-control" placeholder="Поиск..." />
+    </div>
+    <hr />
     @{ 
         var count = 0;
     }
@@ -37,22 +46,24 @@
         {
            @Html.Raw("<div class=\"row\" id=\""+count+"\">");
         }
-        if (this.User.IsInRole("Administrator"))
-        {
-            <a href="/home/editproduct/@item.Id">Edit</a>
-        }
+       
                 <div class="col-md-4">
+                    @if (this.User.IsInRole("Administrator"))
+        {
+<a href="/home/editproduct/@item.Id">Изменить</a>
+        }
                     <div class="row product" id="@item.Id" style="font-size:12px; padding:5px; margin-bottom:20px;">
                         <div class="col-md-8 ">
                             <img style="width:100%; height:auto;" src="@item.ImageSource" />
                             <p>#@item.Id @item.ProductTitle</p>
                             <p style="display:inline">
-                                Price: @item.Price$
+                                Цена: @item.Price$
                                 @if (@item.PriceDiscounted != 0)
                                 {
                                     <del style="display:inline"> @item.PriceDiscounted</del>
                                 }
                             </p>
+                           
                         </div>
                     </div>
                     </div>

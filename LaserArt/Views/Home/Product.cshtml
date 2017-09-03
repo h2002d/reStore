@@ -12,15 +12,17 @@
             </div>
             <div class="col-md-6">
                 <hr class="productPagehr">
-                <h2 class="productpageh3">Description</h2>
+                <h2 class="productpageh3">Техническое описание</h2>
                 <p>@Model.ProductDescription</p>
                 <hr class="productPagehr">
-                <p> <h class="productpageh3">Price:</h>@Model.Price$</p>
+                <p> <h class="productpageh3">Цена:</h>@Model.Price$</p>
                 @if (@Model.PriceDiscounted != 0)
                 {
                     <del> @Model.PriceDiscounted</del>
                 }
                 <hr class="productPagehr">
+                <input type="text" id="cardQuantity" />
+                <input type="button" value="Добавить в карзину +" class="btn btn-default" onclick="addToCard(@Model.Id)"/>
             </div>
         </div>
     </div>

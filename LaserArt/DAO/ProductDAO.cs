@@ -122,5 +122,42 @@ namespace LaserArt.DAO
 
             }
         }
+        public static List<Product> getProductsByOrderId(int id)
+        {
+
+            using (SqlConnection sqlConnection = new SqlConnection(connectionString))
+            {
+                using (SqlCommand command = new SqlCommand("sp_GetProductsByOrderid", sqlConnection))
+                {
+                    try
+                    {
+                        sqlConnection.Open();
+                        command.CommandType = CommandType.StoredProcedure;
+                        command.Parameters.AddWithValue("@OrderId", id);
+                        SqlDataReader rdr = command.ExecuteReader();
+                        List<Product> newProductList = new List<Product>();
+                        while (rdr.Read())
+                        {
+                            Product newProduct = new Product();
+                            newProduct.Id = Convert.ToInt32(rdr["Id"]);
+                            newProduct.ProductTitle = rdr["ProductTitle"].ToString();
+                            newProduct.ProductDescription = rdr["ProductDescription"].ToString();
+                            newProduct.ImageSource = rdr["ImageSource"].ToString();
+                            newProduct.Price = Convert.ToDecimal(rdr["Price"]);
+                            newProduct.CategoryId = Convert.ToInt32(rdr["CategoryId"]);
+                            newProduct.PriceDiscounted = rdr["PriceDiscounted"] == DBNull.Value ? 0 : Convert.ToDecimal(rdr["PriceDiscounted"]);
+
+                            newProductList.Add(newProduct);
+                        }
+                        return newProductList;
+                    }
+                    catch (Exception ex)
+                    {
+                        throw ex;
+                    }
+                }
+
+            }
+        }
     }
 }

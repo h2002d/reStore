@@ -30,5 +30,9 @@ namespace LaserArt.Models
         {
             return ProductDAO.getProductsByCategoryId(categoryId);
         }
+        public static List<Product> GetProductsByOrderId(int orderId)
+        {
+            return ProductDAO.getProductsByOrderId(orderId);
+        }
     }
 }

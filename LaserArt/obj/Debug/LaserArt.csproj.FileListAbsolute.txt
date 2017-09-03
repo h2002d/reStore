@@ -286,3 +286,11 @@ D:\reStore\LaserArt\bin\Microsoft.AI.DependencyCollector.xml
 D:\reStore\LaserArt\bin\Microsoft.AI.ServerTelemetryChannel.xml
 D:\reStore\LaserArt\bin\Microsoft.AI.WindowsServer.xml
 D:\reStore\LaserArt\bin\Microsoft.AI.Web.xml
+D:\reStore\LaserArt\bin\Xamarin.Forms.Core.dll
+D:\reStore\LaserArt\bin\Xamarin.Forms.Platform.dll
+D:\reStore\LaserArt\bin\Xamarin.Forms.Xaml.dll
+D:\reStore\LaserArt\bin\Xamarin.Forms.Core.pdb
+D:\reStore\LaserArt\bin\Xamarin.Forms.Core.xml
+D:\reStore\LaserArt\bin\Xamarin.Forms.Platform.pdb
+D:\reStore\LaserArt\bin\Xamarin.Forms.Xaml.pdb
+D:\reStore\LaserArt\bin\Xamarin.Forms.Xaml.xml
