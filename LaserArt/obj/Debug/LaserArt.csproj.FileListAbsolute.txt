@@ -190,7 +190,6 @@ D:\LaserArt\LaserArt\LaserArt\bin\Microsoft.AI.Web.xml
 D:\LaserArt\LaserArt\LaserArt\obj\Debug\LaserArt.csprojResolveAssemblyReference.cache
 D:\LaserArt\LaserArt\LaserArt\obj\Debug\LaserArt.dll
 D:\LaserArt\LaserArt\LaserArt\obj\Debug\LaserArt.pdb
-D:\reStore\LaserArt\obj\Debug\LaserArt.csprojResolveAssemblyReference.cache
 D:\reStore\LaserArt\obj\Debug\LaserArt.dll
 D:\reStore\LaserArt\obj\Debug\LaserArt.pdb
 D:\reStore\LaserArt\bin\ApplicationInsights.config
@@ -294,3 +293,4 @@ D:\reStore\LaserArt\bin\Xamarin.Forms.Core.xml
 D:\reStore\LaserArt\bin\Xamarin.Forms.Platform.pdb
 D:\reStore\LaserArt\bin\Xamarin.Forms.Xaml.pdb
 D:\reStore\LaserArt\bin\Xamarin.Forms.Xaml.xml
+D:\reStore\LaserArt\obj\Debug\LaserArt.csprojResolveAssemblyReference.cache

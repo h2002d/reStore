@@ -16,5 +16,9 @@ namespace LaserArt.Models
         {
             return DesignerDAO.getSales(id);
         }
+        public void SaveSales()
+        {
+            DesignerDAO.saveSales(this);
+        }
     }
 }

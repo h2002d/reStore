@@ -94,3 +94,82 @@ textarea {
 .adminOrderRow{
     cursor:pointer;
 }
+.top-menu {
+    background-color: black;
+    padding: 20px;
+    color:#ffffff;
+    margin-bottom:0 !important;
+}
+.top-menu-header{
+    font-size:20px;
+}
+.top-menu-item {
+    float: right;
+    margin-right:10px;
+}
+#myBtn {
+    display: none; /* Hidden by default */
+    position: fixed; /* Fixed/sticky position */
+    bottom: 20px; /* Place the button at the bottom of the page */
+    right: 30px; /* Place the button 30px from the right */
+    z-index: 999999; /* Make sure it does not overlap */
+    border: none; /* Remove borders */
+    outline: none; /* Remove outline */
+    background-color: #808080; /* Set a background color */
+    color: white; /* Text color */
+    cursor: pointer; /* Add a mouse pointer on hover */
+    padding: 15px; /* Some padding */
+    border-radius: 10px; /* Rounded corners */
+}
+
+    #myBtn:hover {
+        background-color: #555; /* Add a dark-grey background on hover */
+    }
+.toolbar {
+    position: fixed;
+    width: 100%;
+    z-index: 100;
+    left: 0;
+    bottom: 0;
+    background: black;
+    z-index:9999999;
+}
+.toolbar-right {
+    float: right;
+    width: 510px;
+    margin: 6px 0;
+}
+.footer-btn{
+    background-color:black !important;
+    color:#ffffff;
+}
+.footer-btn:hover {
+    background-color:#555 !important;
+}
+.field-validation-valid {
+    display: none;
+}
+
+.validation-summary-valid {
+    display: none;
+}
+.all_1 {
+    display: inline-block;
+}
+.iconImg {
+    width: 100%;
+    height: auto;
+    cursor: pointer;
+}
+#generalImg {
+    width: 100%;
+    height: auto;
+}
+#cardQuantity{
+    width:50px;
+}
+.cardIcon{
+    width:auto;
+    height:30px;
+    margin-right:10px;
+}

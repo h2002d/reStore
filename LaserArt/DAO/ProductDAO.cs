@@ -30,6 +30,9 @@ namespace LaserArt.DAO
                         command.Parameters.AddWithValue("@ProductTitle", newProduct.ProductTitle);
                         command.Parameters.AddWithValue("@ProductDescription", newProduct.ProductDescription);
                         command.Parameters.AddWithValue("@ImageSource", newProduct.ImageSource);
+                        command.Parameters.AddWithValue("@ImageSource1", newProduct.ImageSource1);
+                        command.Parameters.AddWithValue("@ImageSource2", newProduct.ImageSource2);
+                        command.Parameters.AddWithValue("@ImageSource3", newProduct.ImageSource3);
                         command.Parameters.AddWithValue("@CategoryId", newProduct.CategoryId);
                         command.Parameters.AddWithValue("@Price", newProduct.Price);
                         command.Parameters.AddWithValue("@PriceDiscounted", newProduct.PriceDiscounted);
@@ -69,6 +72,9 @@ namespace LaserArt.DAO
                             newProduct.ProductTitle = rdr["ProductTitle"].ToString();
                             newProduct.ProductDescription = rdr["ProductDescription"].ToString();
                             newProduct.ImageSource = rdr["ImageSource"].ToString();
+                            newProduct.ImageSource1 = rdr["ImageSource1"].ToString();
+                            newProduct.ImageSource2 = rdr["ImageSource2"].ToString();
+                            newProduct.ImageSource3 = rdr["ImageSource3"].ToString();
                             newProduct.Price =Convert.ToDecimal(rdr["Price"]);
                             newProduct.PriceDiscounted = rdr["PriceDiscounted"]==DBNull.Value? 0:Convert.ToDecimal(rdr["PriceDiscounted"]);
                             newProduct.CategoryId = Convert.ToInt32(rdr["CategoryId"]);
@@ -85,6 +91,7 @@ namespace LaserArt.DAO
 
             }
         }
+
         public static List<Product> getProductsByCategoryId(int id)
         {
 
@@ -106,6 +113,10 @@ namespace LaserArt.DAO
                             newProduct.ProductTitle = rdr["ProductTitle"].ToString();
                             newProduct.ProductDescription = rdr["ProductDescription"].ToString();
                             newProduct.ImageSource = rdr["ImageSource"].ToString();
+
+                            newProduct.ImageSource1 = rdr["ImageSource1"].ToString();
+                            newProduct.ImageSource2 = rdr["ImageSource2"].ToString();
+                            newProduct.ImageSource3 = rdr["ImageSource3"].ToString();
                             newProduct.Price = Convert.ToDecimal(rdr["Price"]);
                             newProduct.CategoryId = Convert.ToInt32(rdr["CategoryId"]);
                             newProduct.PriceDiscounted = rdr["PriceDiscounted"]==DBNull.Value? 0:Convert.ToDecimal(rdr["PriceDiscounted"]);
@@ -122,7 +133,7 @@ namespace LaserArt.DAO
 
             }
         }
-        public static List<Product> getProductsByOrderId(int id)
+        public static Dictionary<int,Product> getProductsByOrderId(int id)
         {
 
             using (SqlConnection sqlConnection = new SqlConnection(connectionString))
@@ -135,7 +146,7 @@ namespace LaserArt.DAO
                         command.CommandType = CommandType.StoredProcedure;
                         command.Parameters.AddWithValue("@OrderId", id);
                         SqlDataReader rdr = command.ExecuteReader();
-                        List<Product> newProductList = new List<Product>();
+                        Dictionary<int,Product> newProductList = new Dictionary<int, Product>();
                         while (rdr.Read())
                         {
                             Product newProduct = new Product();
@@ -143,13 +154,81 @@ namespace LaserArt.DAO
                             newProduct.ProductTitle = rdr["ProductTitle"].ToString();
                             newProduct.ProductDescription = rdr["ProductDescription"].ToString();
                             newProduct.ImageSource = rdr["ImageSource"].ToString();
+                            newProduct.ImageSource1 = rdr["ImageSource1"].ToString();
+                            newProduct.ImageSource2 = rdr["ImageSource2"].ToString();
+                            newProduct.ImageSource3 = rdr["ImageSource3"].ToString();
                             newProduct.Price = Convert.ToDecimal(rdr["Price"]);
                             newProduct.CategoryId = Convert.ToInt32(rdr["CategoryId"]);
                             newProduct.PriceDiscounted = rdr["PriceDiscounted"] == DBNull.Value ? 0 : Convert.ToDecimal(rdr["PriceDiscounted"]);
 
+                            newProductList.Add(Convert.ToInt32(rdr["Quantity"]),newProduct);
+                        }
+                        return newProductList;
+                    }
+                    catch (Exception ex)
+                    {
+                        throw ex;
+                    }
+                }
+
+            }
+        }
+        public static List<Product> getProductsByQuery(string query)
+        {
+
+            using (SqlConnection sqlConnection = new SqlConnection(connectionString))
+            {
+                using (SqlCommand command = new SqlCommand("sp_SearchProduct", sqlConnection))
+                {
+                    try
+                    {
+                        sqlConnection.Open();
+                        command.CommandType = CommandType.StoredProcedure;
+                        command.Parameters.AddWithValue("@Query", string.Format("%{0}%",query));
+                        SqlDataReader rdr = command.ExecuteReader();
+                        List<Product> newProductList = new List<Product>();
+                        while (rdr.Read())
+                        {
+                            Product newProduct = new Product();
+                            newProduct.Id = Convert.ToInt32(rdr["Id"]);
+                            newProduct.ProductTitle = rdr["ProductTitle"].ToString();
+                            newProduct.ProductDescription = rdr["ProductDescription"].ToString();
+
+                            newProduct.ImageSource1 = rdr["ImageSource1"].ToString();
+                            newProduct.ImageSource2 = rdr["ImageSource2"].ToString();
+                            newProduct.ImageSource3 = rdr["ImageSource3"].ToString();
+                            newProduct.ImageSource = rdr["ImageSource"].ToString();
+                            newProduct.Price = Convert.ToDecimal(rdr["Price"]);
+                            newProduct.PriceDiscounted = rdr["PriceDiscounted"] == DBNull.Value ? 0 : Convert.ToDecimal(rdr["PriceDiscounted"]);
+                            newProduct.CategoryId = Convert.ToInt32(rdr["CategoryId"]);
+
                             newProductList.Add(newProduct);
                         }
                         return newProductList;
+                    }
+                    catch (Exception ex)
+                    {
+                        throw ex;
+                    }
+                }
+
+            }
+        }
+
+        public static void deleteProduct(int id)
+        {
+
+            using (SqlConnection sqlConnection = new SqlConnection(connectionString))
+            {
+                using (SqlCommand command = new SqlCommand("sp_DeleteProduct", sqlConnection))
+                {
+                    try
+                    {
+                        sqlConnection.Open();
+                        command.CommandType = CommandType.StoredProcedure;
+                     
+                            command.Parameters.AddWithValue("@Id", id);
+                        command.ExecuteNonQuery();
                     }
                     catch (Exception ex)
                     {

@@ -86,7 +86,9 @@ namespace LaserArt.DAO
                             SqlCommand cmd = new SqlCommand("sp_SaveOrderProducts",sqlConnection);
                             cmd.CommandType = CommandType.StoredProcedure;
                             cmd.Parameters.AddWithValue("@OrderId", Convert.ToInt32(id));
-                            cmd.Parameters.AddWithValue("@ProductId", item);
+                            cmd.Parameters.AddWithValue("@ProductId", item.ProductId);
+                            cmd.Parameters.AddWithValue("@Quantity", item.ProductQuantity);
+
                             cmd.ExecuteNonQuery();
                         }
                         return Convert.ToInt32(id);

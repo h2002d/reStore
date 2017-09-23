@@ -18,10 +18,10 @@ namespace LaserArt.Models
         public string Latitide { get; set; }
         public string Longitude { get; set; }
         public bool isCompleted { get; set; }
-        public List<int> Products{ get; set; }
+        public List<CardModel> Products{ get; set; }
         public Order()
         {
-            Products = new List<int>();
+            Products = new List<CardModel>();
         }
 
         public int saveOrder()

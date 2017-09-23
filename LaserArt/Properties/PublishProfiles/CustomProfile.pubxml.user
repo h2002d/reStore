@@ -29,10 +29,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>03/02/2015 20:32:26</publishTime>
     </File>
     <File Include="bin/LaserArt.dll">
-      <publishTime>09/02/2017 16:44:05</publishTime>
+      <publishTime>09/22/2017 11:24:53</publishTime>
     </File>
     <File Include="bin/LaserArt.pdb">
-      <publishTime>09/02/2017 16:44:05</publishTime>
+      <publishTime>09/22/2017 11:24:53</publishTime>
     </File>
     <File Include="bin/Microsoft.AI.Agent.Intercept.dll">
       <publishTime>12/01/2016 03:07:42</publishTime>
@@ -230,7 +230,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>08/04/2017 12:39:05</publishTime>
     </File>
     <File Include="Content/Site.css">
-      <publishTime>09/02/2017 19:19:25</publishTime>
+      <publishTime>09/15/2017 12:54:00</publishTime>
     </File>
     <File Include="favicon.ico">
       <publishTime>08/04/2017 12:38:50</publishTime>
@@ -254,16 +254,19 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/28/2017 21:29:35</publishTime>
     </File>
     <File Include="images/box.jpg">
-      <publishTime>08/05/2017 18:38:41</publishTime>
+      <publishTime>09/15/2017 13:26:52</publishTime>
+    </File>
+    <File Include="images/cardBasketIcon.png">
+      <publishTime>09/15/2017 12:40:09</publishTime>
     </File>
     <File Include="images/Carousel/box.jpg">
-      <publishTime>08/05/2017 18:38:41</publishTime>
+      <publishTime>09/15/2017 13:28:55</publishTime>
     </File>
     <File Include="images/Carousel/Logo.png">
-      <publishTime>08/05/2017 13:18:35</publishTime>
+      <publishTime>09/15/2017 13:28:54</publishTime>
     </File>
     <File Include="images/Logo.png">
-      <publishTime>08/05/2017 13:18:35</publishTime>
+      <publishTime>09/15/2017 13:26:51</publishTime>
     </File>
     <File Include="packages.config">
       <publishTime>08/30/2017 01:32:16</publishTime>
@@ -347,16 +350,16 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/02/2017 17:03:35</publishTime>
     </File>
     <File Include="Views/Admin/OrderDetails.cshtml">
-      <publishTime>09/01/2017 20:39:52</publishTime>
+      <publishTime>09/15/2017 13:22:30</publishTime>
     </File>
     <File Include="Views/Home/About.cshtml">
       <publishTime>08/04/2017 12:38:50</publishTime>
     </File>
     <File Include="Views/Home/Card.cshtml">
-      <publishTime>08/29/2017 23:53:03</publishTime>
+      <publishTime>09/22/2017 11:05:21</publishTime>
     </File>
     <File Include="Views/Home/Category.cshtml">
-      <publishTime>08/13/2017 20:59:15</publishTime>
+      <publishTime>09/06/2017 08:33:29</publishTime>
     </File>
     <File Include="Views/Home/Contact.cshtml">
       <publishTime>08/04/2017 12:38:50</publishTime>
@@ -365,19 +368,28 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>08/13/2017 12:52:52</publishTime>
     </File>
     <File Include="Views/Home/CreateProduct.cshtml">
-      <publishTime>08/28/2017 15:15:50</publishTime>
+      <publishTime>09/07/2017 19:35:07</publishTime>
     </File>
     <File Include="Views/Home/Index.cshtml">
-      <publishTime>08/30/2017 18:24:32</publishTime>
+      <publishTime>09/15/2017 13:24:06</publishTime>
     </File>
     <File Include="Views/Home/Order.cshtml">
-      <publishTime>08/30/2017 20:33:43</publishTime>
+      <publishTime>09/22/2017 11:07:14</publishTime>
     </File>
     <File Include="Views/Home/OrderDetails.cshtml">
-      <publishTime>09/02/2017 17:04:09</publishTime>
+      <publishTime>09/03/2017 11:34:27</publishTime>
     </File>
     <File Include="Views/Home/Product.cshtml">
-      <publishTime>08/28/2017 15:29:08</publishTime>
+      <publishTime>09/14/2017 20:51:16</publishTime>
+    </File>
+    <File Include="Views/Home/Sales.cshtml">
+      <publishTime>09/12/2017 12:33:14</publishTime>
+    </File>
+    <File Include="Views/Home/SalesDetails.cshtml">
+      <publishTime>09/12/2017 12:33:53</publishTime>
+    </File>
+    <File Include="Views/Home/Search.cshtml">
+      <publishTime>09/05/2017 17:04:17</publishTime>
     </File>
     <File Include="Views/Manage/AddPhoneNumber.cshtml">
       <publishTime>08/04/2017 12:39:20</publishTime>
@@ -404,7 +416,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>08/04/2017 12:39:20</publishTime>
     </File>
     <File Include="Views/Shared/_Layout.cshtml">
-      <publishTime>09/02/2017 19:58:15</publishTime>
+      <publishTime>09/22/2017 11:17:24</publishTime>
     </File>
     <File Include="Views/Shared/_LoginPartial.cshtml">
       <publishTime>08/04/2017 12:39:20</publishTime>
@@ -416,7 +428,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>08/04/2017 12:38:50</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>09/02/2017 18:52:42</publishTime>
+      <publishTime>09/22/2017 11:25:13</publishTime>
     </File>
   </ItemGroup>
 </Project>

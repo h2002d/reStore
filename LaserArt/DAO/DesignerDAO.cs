@@ -19,7 +19,7 @@ namespace LaserArt.DAO
                     try
                     {
                         sqlConnection.Open();
-                        command.CommandType = CommandType.Text;
+                        command.CommandType = CommandType.StoredProcedure;
 
                         if (newProduct.Id == null)
                             command.Parameters.AddWithValue("@Id", DBNull.Value);

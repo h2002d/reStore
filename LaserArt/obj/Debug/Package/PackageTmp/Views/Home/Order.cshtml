@@ -1,4 +1,4 @@
-﻿@model List<LaserArt.Models.Product>
+﻿@model List<LaserArt.Models.CardModel>
 @{
     ViewBag.Title = "Order";
 }
@@ -12,8 +12,9 @@
             <div class="col-md-3">
                 <p>Название</p>
             </div>
-            <div class="col-md-6">
-                <p>Описание</p>
+         
+            <div class="col-md-3">
+                <p>Количество</p>
             </div>
             <div class="col-md-3">
                 <p>Цена</p>
@@ -22,17 +23,18 @@
             <hr class="productPagehr"/>
         <div class="row ">
             <div class="col-md-3">
-                <p>@item.ProductTitle</p>
-                <img src="@item.ImageSource" class="imageHeader" />
+                <p>@item.product.ProductTitle</p>
+                <img src="@item.product.ImageSource" class="imageHeader" />
             </div>
-            <div class="col-md-6">
-                <p>@item.ProductDescription</p>
+           
+            <div class="col-md-3">
+                <p>@item.ProductQuantity</p>
             </div>
             <div class="col-md-3">
-                <p>@item.Price$</p>
-                @if (@item.PriceDiscounted != 0)
+                <p>@item.product.Price руб.</p>
+                @if (@item.product.PriceDiscounted != 0)
                 {
-                    <del> @item.PriceDiscounted</del>
+                    <del> @item.product.PriceDiscounted</del>
                 }
             </div>
         </div>

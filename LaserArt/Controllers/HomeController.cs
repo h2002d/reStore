@@ -22,9 +22,18 @@ namespace LaserArt.Controllers
         }
         public ActionResult Index()
         {
-            var products = LaserArt.Models.Product.GetProductsByCategoryId(1);
-            ViewBag.Sales = Sales.GetSalesById(null);
-            return View(products);
+            Dictionary<string, List<Product>> categoryList = new Dictionary<string, List<Models.Product>>();
+           
+            var recomended = LaserArt.Models.Product.GetProducts(null).Take(3).ToList();
+            categoryList.Add("Re:Store-Family рекомендует:", recomended);
+            var categories = Models.Category.GetCategories(null);
+            foreach(var category in categories)
+            {
+                var productsList = Models.Product.GetProductsByCategoryId(Convert.ToInt32(category.Id)).Take(6).ToList();
+                categoryList.Add(category.CategoryName, productsList);
+            }
+            ViewBag.Sales = Models.Sales.GetSalesById(null);
+            return View(categoryList);
         }
 
         public ActionResult About()
@@ -49,6 +58,7 @@ namespace LaserArt.Controllers
         }
         [HttpGet]
         [Authorize(Roles = "Administrator")]
+        [ValidateInput(false)]
         public ActionResult EditProduct(int id)
         {
             Product product = Models.Product.GetProducts(id).FirstOrDefault();
@@ -57,6 +67,7 @@ namespace LaserArt.Controllers
         }
         [HttpPost]
         [Authorize(Roles = "Administrator")]
+        [ValidateInput(false)]
         public ActionResult CreateProduct(Product newProduct)
         {
             try
@@ -71,12 +82,14 @@ namespace LaserArt.Controllers
         }
         [HttpGet]
         [Authorize(Roles = "Administrator")]
+        [ValidateInput(false)]
         public ActionResult CreateCategory()
         {
             return View();
         }
         [HttpGet]
         [Authorize(Roles = "Administrator")]
+        [ValidateInput(false)]
         public ActionResult EditCategory(int id)
         {
             Category category = Models.Category.GetCategories(id).FirstOrDefault();
@@ -146,17 +159,25 @@ namespace LaserArt.Controllers
             {
                 HttpCookie cookieOld = Request.Cookies["Cart"];
                 var value = cookieOld.Value;
-                var model = JsonConvert.DeserializeObject<List<int>>(value);
-                if (!model.Contains(productId))
-                    model.Add(productId);
-
+                var model = JsonConvert.DeserializeObject<List<CardModel>> (value);
+                int index = model.FindIndex(item => item.ProductId == productId);
+                if (index < 0)
+                {
+                    CardModel newItem = new CardModel();
+                    newItem.ProductId = productId;
+                    newItem.ProductQuantity = quantity;
+                    model.Add(newItem);
+                }
                 cookieOld.Value = JsonConvert.SerializeObject(model);
                 Response.Cookies.Add(cookieOld);
             }
             else
             {
-                List<int> idList = new List<int>();
-                idList.Add(productId);
+                List<CardModel> idList = new List<CardModel>();
+                CardModel model = new CardModel();
+                model.ProductId = productId;
+                model.ProductQuantity = quantity;
+                idList.Add(model);
                 var json = JsonConvert.SerializeObject(idList);
                 HttpCookie cookie = new HttpCookie("Cart");
                 cookie.Value = json;
@@ -169,7 +190,7 @@ namespace LaserArt.Controllers
 
         public ActionResult Card()
         {
-            List<Product> productList = new List<Models.Product>();
+            List<CardModel> productList = new List<CardModel>();
             decimal sum = 0;
             if (Request.Cookies["Cart"] != null)
             {
@@ -177,17 +198,19 @@ namespace LaserArt.Controllers
 
                 var value = cookieOld.Value;
 
-                var idList = JsonConvert.DeserializeObject<List<int>>(value);
+                var idList = JsonConvert.DeserializeObject<List<CardModel>>(value);
 
 
                 foreach (var item in idList)
                 {
-                    var product = LaserArt.Models.Product.GetProducts(Convert.ToInt32(item)).FirstOrDefault();
-                    productList.Add(product);
-                    sum += product.Price;
+                    item.product= LaserArt.Models.Product.GetProducts(Convert.ToInt32(item.ProductId)).FirstOrDefault();
+                    productList.Add(item);
+                    sum += item.ProductQuantity*item.product.Price;
                 }
 
             }
+            
+                ViewBag.Recommended = Models.Product.GetProducts(null).Take(6);
             ViewBag.Sum = sum;
             return View(productList);
         }
@@ -198,9 +221,9 @@ namespace LaserArt.Controllers
             {
                 HttpCookie cookieOld = Request.Cookies["Cart"];
                 var value = cookieOld.Value;
-                var model = JsonConvert.DeserializeObject<List<int>>(value);
+                var model = JsonConvert.DeserializeObject<List<CardModel>>(value);
 
-                model.Remove(id);
+                model.Remove(model.Where(m=>m.ProductId==id).First());
 
                 cookieOld.Value = JsonConvert.SerializeObject(model);
                 Response.Cookies.Add(cookieOld);
@@ -209,9 +232,16 @@ namespace LaserArt.Controllers
             return RedirectToAction("Card");
         }
 
+        [HttpPost]
+        public ActionResult RemoveProduct(int id)
+        {
+            Models.Product.DeleteProduct(id);
+            return Json("Телефон удален.",JsonRequestBehavior.AllowGet);
+        }
+
         public ActionResult Order(int? id)
         {
-            List<Product> productList = new List<Models.Product>();
+            List<CardModel> productList = new List<CardModel>();
             decimal sum = 0;
             if (id == null)
             {
@@ -222,12 +252,14 @@ namespace LaserArt.Controllers
 
                     var value = cookieOld.Value;
 
-                    var idList = JsonConvert.DeserializeObject<List<int>>(value);
+                    var idList = JsonConvert.DeserializeObject<List<CardModel>>(value);
                     foreach (var item in idList)
                     {
-                        var product = LaserArt.Models.Product.GetProducts(Convert.ToInt32(item)).FirstOrDefault();
-                        productList.Add(product);
-                        sum += product.Price;
+
+                        item.product = LaserArt.Models.Product.GetProducts(Convert.ToInt32(item.ProductId)).FirstOrDefault();
+                        productList.Add(item);
+                        sum += item.ProductQuantity * item.product.Price;
+
                     }
 
                 }
@@ -235,10 +267,12 @@ namespace LaserArt.Controllers
             else
             {
                 ViewBag.ListInt = id;
-
-                var product = LaserArt.Models.Product.GetProducts(id).FirstOrDefault();
-                productList.Add(product);
-                sum += product.Price;
+                CardModel model = new CardModel();
+                model.product = LaserArt.Models.Product.GetProducts(id).FirstOrDefault();
+                model.ProductId = Convert.ToInt32(id);
+                model.ProductQuantity = 1;
+                productList.Add(model);
+                sum += model.product.Price;
             }
             ViewBag.Sum = sum;
             return View(productList);
@@ -264,7 +298,7 @@ namespace LaserArt.Controllers
                     HttpCookie cookieOld = Request.Cookies["Cart"];
 
                     var value = cookieOld.Value;
-                    var idList = JsonConvert.DeserializeObject<List<int>>(value);
+                    var idList = JsonConvert.DeserializeObject<List<CardModel>>(value);
                     foreach (var item in idList)
                     {
                         newOrder.Products.Add(item);
@@ -283,7 +317,18 @@ namespace LaserArt.Controllers
         {
             newOrder.Latitide = "0";
             newOrder.Longitude = "0";
-           newOrder.Id= newOrder.saveOrder();
+            if (Request.Cookies["Cart"] != null)
+            {
+                HttpCookie cookieOld = Request.Cookies["Cart"];
+
+                var value = cookieOld.Value;
+                var idList = JsonConvert.DeserializeObject<List<CardModel>>(value);
+                foreach (var item in idList)
+                {
+                    newOrder.Products.Add(item);
+                }
+            }
+            newOrder.Id= newOrder.saveOrder();
             SendMail(newOrder);
             return RedirectToAction("Index");
         }
@@ -307,8 +352,8 @@ namespace LaserArt.Controllers
 
                     .Append(string.Format("Имя зказчика:{0} {1} <br/>", newOrder.Name, newOrder.SurName));
                     foreach (var item in newOrder.Products) {
-                   var product= Models.Product.GetProducts(item).FirstOrDefault();
-                    Body.Append(string.Format("Название товара:N{0} {1} <br/>", item, product.ProductTitle));
+                   var product= Models.Product.GetProducts(item.ProductId).FirstOrDefault();
+                    Body.Append(string.Format("Название товара:N{0} {1} <br/>", item.ProductId, product.ProductTitle));
                         }
                 Body.Append(string.Format("Вреия заказа: {0}", DateTime.Now));
                 mail.Body = Body.ToString();
@@ -326,6 +371,41 @@ namespace LaserArt.Controllers
                 throw ex;
             }
         }
+        public ActionResult Search(string query)
+        {
+            var listProducts = Models.Product.GetProductsByQuery(query);
+            ViewBag.Sales = Models.Sales.GetSalesById(null);
+            ViewBag.Info = "Результаты поиска:";
+            return View(listProducts);
+        }
+        public ActionResult Sales()
+        {
+            var sales = Models.Sales.GetSalesById(null);
+            return View(sales);
+        }
 
+        public ActionResult SalesDetails(int? id)
+        {
+            var sale = Models.Sales.GetSalesById(id).FirstOrDefault();
+            return View(sale);
+        }
+        [HttpPost]
+        public ActionResult SalesDetails(Sales sale)
+        {
+            try
+            {
+                sale.SaveSales();
+                return RedirectToAction("Sales");
+            }
+            catch(Exception ex)
+            {
+                return RedirectToAction("SalesDetails",sale.Id);
+
+            }
+
+          
+           
+
+        }
     }
 }

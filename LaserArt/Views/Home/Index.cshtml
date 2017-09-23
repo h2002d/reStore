@@ -1,7 +1,7 @@
-﻿@model List<LaserArt.Models.Product>
+﻿@model  Dictionary<string, List<LaserArt.Models.Product>>
 
 @{
-    ViewBag.Title = "Home Page";
+    ViewBag.Title = "Главная";
 }
 
 <div class="jumbotron" style="padding:0 !important;">
@@ -33,47 +33,46 @@
     </div>
 </div>
 <div class="container jumbotron" style="padding-top:5px !important;">
-    <div class="row" align="right">
-        <input type="text" class="form-control" placeholder="Поиск..." />
+    <div class="row" align="left">
+       @ViewBag.Info
     </div>
-    <hr />
-    @{ 
-        var count = 0;
-    }
+  
     @foreach (var item in Model)
     {
-        if (count % 3 == 0&&count==0)
-        {
-           @Html.Raw("<div class=\"row\" id=\""+count+"\">");
-        }
        
+            @Html.Raw("<div class=\"row\" >");
+
+        
+        <h3>@item.Key</h3>
+                <hr />
+        foreach (var product in item.Value)
+        {
+           
+
                 <div class="col-md-4">
                     @if (this.User.IsInRole("Administrator"))
-        {
-<a href="/home/editproduct/@item.Id">Изменить</a>
-        }
-                    <div class="row product" id="@item.Id" style="font-size:12px; padding:5px; margin-bottom:20px;">
+                    {
+<a href="/home/editproduct/@product.Id">Изменить</a>
+                    }
+                    <div class="row product" id="@product.Id" style="font-size:12px; padding:5px; margin-bottom:20px;">
                         <div class="col-md-8 ">
-                            <img style="width:100%; height:auto;" src="@item.ImageSource" />
-                            <p>#@item.Id @item.ProductTitle</p>
+                            <img style="width:100%; height:auto;" src="@product.ImageSource" />
+                            <p>#@product.Id @product.ProductTitle</p>
                             <p style="display:inline">
-                                Цена: @item.Price$
-                                @if (@item.PriceDiscounted != 0)
+                                Цена: @product.Price руб.
+                                @if (@product.PriceDiscounted != 0)
                                 {
-                                    <del style="display:inline"> @item.PriceDiscounted</del>
+                                    <del style="display:inline"> @product.PriceDiscounted</del>
                                 }
                             </p>
                            
                         </div>
                     </div>
                     </div>
-        if (count % 3 == 0 && count == 0)
-        {
-            Html.Raw("</div>");
-
+           
+            
         }
-        count++;
-    
+        @Html.Raw("</div>")
     }
     </div>
 <script src="~/Scripts/carousel.js"></script>

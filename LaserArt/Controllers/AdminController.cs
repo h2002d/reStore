@@ -25,6 +25,7 @@ namespace LaserArt.Controllers
         }
         public ActionResult OrderDetails(int OrderId)
         {
+            
             var product = Product.GetProductsByOrderId(OrderId);
             return View(product);
         }
