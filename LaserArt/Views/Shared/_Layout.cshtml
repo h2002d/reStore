@@ -9,11 +9,13 @@
 
 </head>
 <body>
-    <div>
-        <ul class="list-inline top-menu">
-            <li class="top-menu-header" title="Re:Store Family ── Сеть фирменых магазинов техники Apple и Samsung  в Москве. Официальный представитель. Оригинальная  продукция Apple и Samsung">re:store Family</li>
-            <li></li>
-            @if (Request.Cookies["Cart"] != null)
+    
+        <div style="width:90%; margin:0 auto;">
+            <div class="top-menu-div">
+                <ul class="list-inline top-menu">
+                    <li class="top-menu-header" title="Re:Store Family ── Сеть фирменых магазинов техники Apple и Samsung  в Москве. Официальный представитель. Оригинальная  продукция Apple и Samsung">re:store Family</li>
+                    <li></li>
+                    @if (Request.Cookies["Cart"] != null)
             {
                 HttpCookie cookieOld = Request.Cookies["Cart"];
 
@@ -26,85 +28,85 @@
             {
                 ViewBag.CardCount = 0;
             }
-            @if (!Request.Browser.IsMobileDevice)
+                    @if (!Request.Browser.IsMobileDevice)
             {
-                <li class="top-menu-item"><input type="text" id="searchArea" class="form-control" placeholder="Поиск..." /></li>
+                        <li class="top-menu-item"><input type="text" id="searchArea" class="form-control" placeholder="Поиск..." /></li>
 
-            <li class="top-menu-item">Тел.:+781030456</li>
+                        <li class="top-menu-item">Тел.:+781030456</li>
 
-            <li class="top-menu-item"> <a href="/home/card"><img class="cardIcon" src="~/images/cardBasketIcon.png" /><u>@ViewBag.CardCount</u> шт.</a></li>
+                        <li class="top-menu-item"> <a href="/home/card"><img class="cardIcon" src="~/images/cardBasketIcon.png" /><u>@ViewBag.CardCount</u> шт.</a></li>
             }
 
-        </ul>
-        <div >
-            <div class="col-sm-3" style="padding:0;">
-                <div class="sidebar-nav">
-                    <div class="navbar navbar-default" role="navigation">
-                        <div class="navbar-header">
-                            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-navbar-collapse">
-                                <span class="sr-only"></span>
-                                <span class="icon-bar"></span>
-                                <span class="icon-bar"></span>
-                                <span class="icon-bar"></span>
-                            </button>
-@if (Request.Browser.IsMobileDevice)
+                </ul>
+                <div>
+                    <div class="col-sm-3" style="padding:0;">
+                        <div class="sidebar-nav">
+                            <div class="navbar navbar-default" role="navigation">
+                                <div class="navbar-header">
+                                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-navbar-collapse">
+                                        <span class="sr-only"></span>
+                                        <span class="icon-bar"></span>
+                                        <span class="icon-bar"></span>
+                                        <span class="icon-bar"></span>
+                                    </button>
+                                    @if (Request.Browser.IsMobileDevice)
 {
-                            <input type="text" id="searchArea" style="margin:5px; width:70%;" class="form-control" placeholder="Поиск..." />
+                                        <input type="text" id="searchArea" style="margin:5px; width:70%;" class="form-control" placeholder="Поиск..." />
 }
+                                </div>
+                                <div class="navbar-collapse collapse sidebar-navbar-collapse">
+                                    <ul class="nav navbar-nav">
+                                        <li>@Html.ActionLink("Главная", "Index", "Home")</li>
+                                        @foreach (var item in ViewBag.Categories)
+                                    {
+                                            <li><a href="/home/category/@item.Id">@item.CategoryName</a></li>
+                                    }
+                                        <li>@Html.ActionLink("О нас", "About", "Home")</li>
+                                        <li>@Html.ActionLink("Связь", "Contact", "Home")</li>
+
+
+                                        <li>  <a href="/home/card">Корзина <u>@ViewBag.CardCount</u> шт.</a></li>
+
+                                        @if (this.User.IsInRole("Administrator"))
+                                    {
+                                            <li>@Html.ActionLink("Добавит продукт", "CreateProduct", "Home")</li>
+                                            <li>@Html.ActionLink("Добавит Категорию", "CreateCategory", "Home")</li>
+                                            <li>@Html.ActionLink("Заказы", "Order", "Admin")</li>
+                                            <li>@Html.ActionLink("Дизайнер", "Sales", "Home")</li>
+
+                                            @Html.Partial("_LoginPartial")
+                                    }
+
+                                    </ul>
+
+                                </div><!--/.nav-collapse -->
+                            </div>
                         </div>
-                        <div class="navbar-collapse collapse sidebar-navbar-collapse">
-                            <ul class="nav navbar-nav">
-                                    <li>@Html.ActionLink("Главная", "Index", "Home")</li>
-                                    @foreach (var item in ViewBag.Categories)
-                                    {
-                                        <li><a href="/home/category/@item.Id">@item.CategoryName</a></li>
-                                    }
-                                    <li>@Html.ActionLink("О нас", "About", "Home")</li>
-                                    <li>@Html.ActionLink("Связь", "Contact", "Home")</li>
-                                    
-                             
-                                    <li>  <a href="/home/card">Корзина <u>@ViewBag.CardCount</u> шт.</a></li>
-
-                                    @if (this.User.IsInRole("Administrator"))
-                                    {
-                                        <li>@Html.ActionLink("Добавит продукт", "CreateProduct", "Home")</li>
-                                        <li>@Html.ActionLink("Добавит Категорию", "CreateCategory", "Home")</li>
-                                        <li>@Html.ActionLink("Заказы", "Order", "Admin")</li>
-                                        <li>@Html.ActionLink("Дизайнер", "Sales", "Home")</li>
-
-                                        @Html.Partial("_LoginPartial")
-                                    }
-
-                                </ul>
-                           
-                        </div><!--/.nav-collapse -->
                     </div>
-                </div>
-            </div>
-            <div class="col-sm-9">
-                <div class="container body-content">
-                    @RenderBody()
-                    <hr style="border-top:1px solid #000000 !important;" />
-                    <footer style="margin-bottom:50px; font-size:10px;">
+                    <div class="col-sm-9" style="padding:0 !important;">
+                        <div class="container body-content">
+                            @RenderBody()
+                            <hr style="border-top:1px solid #000000 !important;" />
+                            <footer style="margin-bottom:50px; font-size:10px;">
 
-                        <p>
-                            &copy; @DateTime.Now.Year - re:store-family Powered by <a href="https://www.facebook.com/novir">Novir+</a>
-                            <br />
-                            Электронная почта: internetshop.restore-family@mail.ru
-                            <br />
-                            Тел.: <phone>8 (800) 700-19-44</phone> (круглосуточно, пн-вс)
-                        </p>
-                    </footer>
-                </div>
-                <button onclick="topFunction()" id="myBtn" title="Go to top">^</button>
-                
-             
-            </div>
-@if (!Request.Browser.IsMobileDevice)
+                                <p>
+                                    &copy; @DateTime.Now.Year - re:store-family Powered by <a href="https://www.facebook.com/novir">Novir+</a>
+                                    <br />
+                                    Электронная почта: internetshop.restore-family@mail.ru
+                                    <br />
+                                    Тел.: <phone>8 (800) 700-19-44</phone> (круглосуточно, пн-вс)
+                                </p>
+                            </footer>
+                        </div>
+                        <button onclick="topFunction()" id="myBtn" title="Go to top">^</button>
+
+
+                    </div>
+                    @if (!Request.Browser.IsMobileDevice)
 {
-            <div class="toolbar">
-                <div class="toolbar-right">
-                  @if (Request.Cookies["Cart"] != null)
+                        <div class="toolbar">
+                            <div class="toolbar-right">
+                                @if (Request.Cookies["Cart"] != null)
                   {
                       HttpCookie cookieOld = Request.Cookies["Cart"];
 
@@ -118,18 +120,18 @@
                       ViewBag.CardCount = 0;
                   }
 
-                  @*  <img class="cardIcon" src="~/images/cardBasketIcon.png" />*@
-                    <a href="/home/card">Корзина <u>@ViewBag.CardCount</u> шт.</a>
-                    <input type="button" class="btn btn-default footer-btn" onclick="orderBtnClick()" value="Оформить заказ" />
+                                @*  <img class="cardIcon" src="~/images/cardBasketIcon.png" />*@
+                                <a href="/home/card">Корзина <u>@ViewBag.CardCount</u> шт.</a>
+                                <input type="button" class="btn btn-default footer-btn" onclick="orderBtnClick()" value="Оформить заказ" />
 
-                </div>
-            </div>
+                            </div>
+                        </div>
 }
-        </div>
-        
-    </div>
-    
+                </div>
 
+            </div>
+        </div>
+ 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)

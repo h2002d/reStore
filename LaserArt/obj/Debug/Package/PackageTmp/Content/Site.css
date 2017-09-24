@@ -30,8 +30,8 @@
 }
 /* Set padding to keep content from hitting the edges */
 .body-content {
+    padding-right: 0px !important;
     padding-left: 15px;
-    padding-right: 15px;
 }
 
 /* Override the default bootstrap behavior where horizontal description lists 
@@ -84,9 +84,9 @@ textarea {
     margin-bottom:5px;
     padding:5px;
     }
-.btn-accept-order{
+/*.btn-accept-order{
 
-}
+}*/
 
 .jumbotron{
     background-color:#ffffff !important;
@@ -97,8 +97,10 @@ textarea {
 .top-menu {
     background-color: black;
     padding: 20px;
-    color:#ffffff;
-    margin-bottom:0 !important;
+    color: #ffffff;
+    margin-bottom: 0 !important;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
 }
 .top-menu-header{
     font-size:20px;
@@ -112,7 +114,7 @@ textarea {
     position: fixed; /* Fixed/sticky position */
     bottom: 20px; /* Place the button at the bottom of the page */
     right: 30px; /* Place the button 30px from the right */
-    z-index: 999999; /* Make sure it does not overlap */
+    z-index: 999999999999999; /* Make sure it does not overlap */
     border: none; /* Remove borders */
     outline: none; /* Remove outline */
     background-color: #808080; /* Set a background color */
@@ -170,6 +172,6 @@ textarea {
 }
 .cardIcon{
     width:auto;
-    height:30px;
+    height:16px;
     margin-right:10px;
 }
