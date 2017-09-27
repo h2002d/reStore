@@ -32,6 +32,7 @@
 .body-content {
     padding-right: 0px !important;
     padding-left: 15px;
+    background-color:white;
 }
 
 /* Override the default bootstrap behavior where horizontal description lists 
@@ -94,13 +95,52 @@ textarea {
 .adminOrderRow{
     cursor:pointer;
 }
+.headerSpan {
+    display: inline-block;
+    vertical-align: middle;
+    line-height: normal;
+}
 .top-menu {
     background-color: black;
-    padding: 20px;
+    padding: 20px 0 20px 20px;
     color: #ffffff;
-    margin-bottom: 0 !important;
+    margin-bottom: 15px !important;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
+    margin-top: 80px;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+}
+.inner-addon {
+    position: relative;
+}
+
+    /* style icon */
+    .inner-addon .glyphicon {
+        position: absolute;
+        padding: 10px;
+        pointer-events: none;
+    }
+
+/* align icon */
+.left-addon .glyphicon {
+    left: 0px;
+}
+
+.right-addon .glyphicon {
+    right: 0px;
+}
+
+/* add padding  */
+.left-addon input {
+    padding-left: 30px;
+}
+.header-text 
+{
+    text-align:center;
+}
+.right-addon input {
+    padding-right: 30px;
 }
 .top-menu-header{
     font-size:20px;
@@ -174,4 +214,12 @@ textarea {
     width:auto;
     height:16px;
     margin-right:10px;
+}
+.item-div
+{
+    cursor:pointer;
+}
+.item-div:hover
+{
+    border:1px solid #d1d1d1;
 }

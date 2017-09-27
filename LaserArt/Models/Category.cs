@@ -20,5 +20,10 @@ namespace LaserArt.Models
         {
             return CategoryDAO.saveProduct(this);
         }
+
+        public static void DeleteCategory(int id)
+        {
+            CategoryDAO.DeleteCategoryByID(id);
+        }
     }
 }

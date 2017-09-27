@@ -29,10 +29,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/23/2017 16:25:40</publishTime>
     </File>
     <File Include="bin/LaserArt.dll">
-      <publishTime>09/24/2017 10:46:42</publishTime>
+      <publishTime>09/26/2017 17:15:19</publishTime>
     </File>
     <File Include="bin/LaserArt.pdb">
-      <publishTime>09/24/2017 10:46:42</publishTime>
+      <publishTime>09/26/2017 17:15:19</publishTime>
     </File>
     <File Include="bin/Microsoft.AI.Agent.Intercept.dll">
       <publishTime>09/23/2017 16:25:40</publishTime>
@@ -230,10 +230,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/23/2017 16:25:38</publishTime>
     </File>
     <File Include="Content/Site.css">
-      <publishTime>09/24/2017 16:12:41</publishTime>
+      <publishTime>09/26/2017 17:20:26</publishTime>
     </File>
     <File Include="favicon.ico">
-      <publishTime>09/24/2017 16:19:19</publishTime>
+      <publishTime>09/26/2017 09:38:41</publishTime>
     </File>
     <File Include="fonts/glyphicons-halflings-regular.eot">
       <publishTime>09/23/2017 16:25:39</publishTime>
@@ -359,7 +359,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/23/2017 16:25:38</publishTime>
     </File>
     <File Include="Views/Home/Category.cshtml">
-      <publishTime>09/23/2017 16:25:38</publishTime>
+      <publishTime>09/26/2017 11:35:49</publishTime>
     </File>
     <File Include="Views/Home/Contact.cshtml">
       <publishTime>09/23/2017 16:25:38</publishTime>
@@ -371,7 +371,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/23/2017 16:25:38</publishTime>
     </File>
     <File Include="Views/Home/Index.cshtml">
-      <publishTime>09/23/2017 16:25:38</publishTime>
+      <publishTime>09/26/2017 17:59:15</publishTime>
     </File>
     <File Include="Views/Home/Order.cshtml">
       <publishTime>09/23/2017 16:25:38</publishTime>
@@ -386,7 +386,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/23/2017 16:25:38</publishTime>
     </File>
     <File Include="Views/Home/SalesDetails.cshtml">
-      <publishTime>09/23/2017 16:25:38</publishTime>
+      <publishTime>09/26/2017 11:26:40</publishTime>
     </File>
     <File Include="Views/Home/Search.cshtml">
       <publishTime>09/23/2017 16:25:38</publishTime>
@@ -416,7 +416,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/23/2017 16:25:38</publishTime>
     </File>
     <File Include="Views/Shared/_Layout.cshtml">
-      <publishTime>09/24/2017 16:08:48</publishTime>
+      <publishTime>09/26/2017 17:51:31</publishTime>
     </File>
     <File Include="Views/Shared/_LoginPartial.cshtml">
       <publishTime>09/23/2017 16:25:38</publishTime>
@@ -428,7 +428,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/23/2017 16:25:38</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>09/24/2017 10:48:01</publishTime>
+      <publishTime>09/26/2017 18:21:18</publishTime>
     </File>
   </ItemGroup>
 </Project>

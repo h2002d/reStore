@@ -87,6 +87,7 @@ namespace LaserArt.Controllers
         {
             return View();
         }
+
         [HttpGet]
         [Authorize(Roles = "Administrator")]
         [ValidateInput(false)]
@@ -94,6 +95,15 @@ namespace LaserArt.Controllers
         {
             Category category = Models.Category.GetCategories(id).FirstOrDefault();
             return View("CreateCategory", category);
+        }
+
+        [HttpGet]
+        [Authorize(Roles = "Administrator")]
+        [ValidateInput(false)]
+        public ActionResult DeleteCategory(int id)
+        {
+            Models.Category.DeleteCategory(id);
+            return View("Index");
         }
 
         [HttpPost]
@@ -152,7 +162,33 @@ namespace LaserArt.Controllers
             return Json("Картинка загружена", JsonRequestBehavior.AllowGet);
         }
 
-        
+        [HttpPost]
+        public JsonResult FileUploadCarousel()
+        {
+            HttpPostedFile file = null;
+            if (System.Web.HttpContext.Current.Request.Files.AllKeys.Any())
+            {
+                file = System.Web.HttpContext.Current.Request.Files["HttpPostedFileBase"];
+            }
+            string pic = System.IO.Path.GetFileName(file.FileName);
+            string path = System.IO.Path.Combine(
+                                   Server.MapPath("~/images/Carousel"), pic);
+            // file is uploaded
+            file.SaveAs(path);
+
+            // save the image path path to the database or you can send image 
+            // directly to database
+            // in-case if you want to store byte[] ie. for DB
+            using (MemoryStream ms = new MemoryStream())
+            {
+                file.InputStream.CopyTo(ms);
+                byte[] array = ms.GetBuffer();
+            }
+
+
+            // after successfully uploading redirect the user
+            return Json("Картинка загружена", JsonRequestBehavior.AllowGet);
+        }
         public JsonResult AddToCard(int productId,int quantity)
         {
             if (Request.Cookies["Cart"] != null)

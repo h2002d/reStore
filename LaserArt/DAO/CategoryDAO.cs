@@ -45,6 +45,29 @@ namespace LaserArt.DAO
 
             }
         }
+
+        internal static void DeleteCategoryByID(int id)
+        {
+            using (SqlConnection sqlConnection = new SqlConnection(connectionString))
+            {
+                using (SqlCommand command = new SqlCommand("sp_DeleteCategory", sqlConnection))
+                {
+                    try
+                    {
+                        sqlConnection.Open();
+                        command.CommandType = CommandType.StoredProcedure;
+                        command.Parameters.AddWithValue("@Id", id);
+                        command.ExecuteNonQuery();
+                    }
+                    catch (Exception ex)
+                    {
+                        throw ex;
+                    }
+                }
+
+            }
+        }
+
         public static Category saveProduct(Category newCategory)
         {
 

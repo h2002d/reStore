@@ -4,8 +4,10 @@
 <h2>@ViewBag.CategoryName</h2>
 @if (this.User.IsInRole("Administrator"))
         {
-<a href="/home/editCategory/@ViewBag.CategoryId">Edit</a>
-        }
+<a href="/home/deleteCategory/@ViewBag.CategoryId">Удалить</a>
+<a href="/home/editCategory/@ViewBag.CategoryId">Изменить</a>
+
+}
                  <div class="container jumbotron">
     @{
         var count = 0;
