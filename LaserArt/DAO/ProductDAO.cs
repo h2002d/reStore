@@ -133,7 +133,7 @@ namespace LaserArt.DAO
 
             }
         }
-        public static Dictionary<int,Product> getProductsByOrderId(int id)
+        public static List<CardModel> getProductsByOrderId(int id)
         {
 
             using (SqlConnection sqlConnection = new SqlConnection(connectionString))
@@ -146,7 +146,7 @@ namespace LaserArt.DAO
                         command.CommandType = CommandType.StoredProcedure;
                         command.Parameters.AddWithValue("@OrderId", id);
                         SqlDataReader rdr = command.ExecuteReader();
-                        Dictionary<int,Product> newProductList = new Dictionary<int, Product>();
+                        List<CardModel> newProductList = new List<CardModel>();
                         while (rdr.Read())
                         {
                             Product newProduct = new Product();
@@ -160,8 +160,10 @@ namespace LaserArt.DAO
                             newProduct.Price = Convert.ToDecimal(rdr["Price"]);
                             newProduct.CategoryId = Convert.ToInt32(rdr["CategoryId"]);
                             newProduct.PriceDiscounted = rdr["PriceDiscounted"] == DBNull.Value ? 0 : Convert.ToDecimal(rdr["PriceDiscounted"]);
-
-                            newProductList.Add(Convert.ToInt32(rdr["Quantity"]),newProduct);
+                            CardModel model = new CardModel();
+                            model.ProductQuantity = Convert.ToInt32(rdr["Quantity"]);
+                            model.product = newProduct;
+                            newProductList.Add(model);
                         }
                         return newProductList;
                     }

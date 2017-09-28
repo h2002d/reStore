@@ -1,4 +1,4 @@
-﻿@model Dictionary<int,LaserArt.Models.Product>
+﻿@model List<LaserArt.Models.CardModel>
 @{
     ViewBag.Title = "OrderDetails";
 }
@@ -7,7 +7,7 @@
 
     @foreach (var item in Model)
     {
-        <div class="row orderItem" id="@(item.Value+"itemCard")">
+        <div class="row orderItem" id="@(item.product.Id+"itemCard")">
             <div class="row">
                 <div class="col-md-3">
                     <p>Название</p>
@@ -24,18 +24,18 @@
             <hr class="productPagehr" />
             <div class="row ">
                 <div class="col-md-3">
-                    <p>@item.Value.ProductTitle</p>
-                    <img src="@item.Value.ImageSource" class="imageHeader" />
+                    <p>@item.product.ProductTitle</p>
+                    <img src="@item.product.ImageSource" class="imageHeader" />
                 </div>
                
                 <div class="col-md-2">
-                    <p>@item.Key</p>
+                    <p>@item.ProductQuantity</p>
                 </div>
                 <div class="col-md-2">
-                    <p>@item.Value.Price руб.</p>
-                    @if (@item.Value.PriceDiscounted != 0)
+                    <p>@item.product.Price руб.</p>
+                    @if (@item.product.PriceDiscounted != 0)
                 {
-                        <del> @item.Value.PriceDiscounted</del>
+                        <del> @item.product.PriceDiscounted</del>
                     }
                 </div>
                

@@ -49,7 +49,7 @@ namespace LaserArt.Models
         {
             return ProductDAO.getProductsByQuery(query);
         }
-        public static Dictionary<int,Product> GetProductsByOrderId(int orderId)
+        public static List<CardModel> GetProductsByOrderId(int orderId)
         {
             return ProductDAO.getProductsByOrderId(orderId);
         }

@@ -9,6 +9,7 @@ using System.Text;
 using System.Web;
 using System.Web.Configuration;
 using System.Web.Mvc;
+using System.Web.Routing;
 using System.Web.Script.Serialization;
 
 namespace LaserArt.Controllers
@@ -364,9 +365,14 @@ namespace LaserArt.Controllers
                     newOrder.Products.Add(item);
                 }
             }
-            newOrder.Id= newOrder.saveOrder();
+            newOrder.Id = newOrder.saveOrder();
             SendMail(newOrder);
-            return RedirectToAction("Index");
+            return RedirectToAction("OrderAproval", new { id = newOrder.Id });
+        }
+        public ActionResult OrderAproval(int id)
+        {
+            ViewBag.OrderId = id;
+            return View();
         }
 
         public void SendMail(Order newOrder)
@@ -391,7 +397,7 @@ namespace LaserArt.Controllers
                    var product= Models.Product.GetProducts(item.ProductId).FirstOrDefault();
                     Body.Append(string.Format("Название товара:N{0} {1} <br/>", item.ProductId, product.ProductTitle));
                         }
-                Body.Append(string.Format("Вреия заказа: {0}", DateTime.Now));
+                Body.Append(string.Format("Дата заказа: {0}", DateTime.Now));
                 mail.Body = Body.ToString();
                 mail.IsBodyHtml = true;
                 SmtpClient smtp = new SmtpClient();

@@ -11,6 +11,7 @@
     .sidebar-nav .navbar .navbar-collapse {
         padding: 0;
         max-height: none;
+        margin-bottom:100px;
     }
 
     .sidebar-nav .navbar ul {
@@ -33,6 +34,7 @@
     padding-right: 0px !important;
     padding-left: 15px;
     background-color:white;
+    min-height:50%;
 }
 
 /* Override the default bootstrap behavior where horizontal description lists 

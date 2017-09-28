@@ -299,6 +299,7 @@
     <Content Include="Views\Home\Search.cshtml" />
     <Content Include="Views\Home\SalesDetails.cshtml" />
     <Content Include="Views\Home\Sales.cshtml" />
+    <Content Include="Views\Home\OrderAproval.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
