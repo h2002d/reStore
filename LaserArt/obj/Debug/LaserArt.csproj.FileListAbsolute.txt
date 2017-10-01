@@ -399,3 +399,5 @@ D:\Projects\reStore\LaserArt\obj\Debug\LaserArt.csprojResolveAssemblyReference.c
 D:\Projects\reStore\LaserArt\obj\Debug\LaserArt.csproj.CoreCompileInputs.cache
 D:\Projects\reStore\LaserArt\obj\Debug\LaserArt.dll
 D:\Projects\reStore\LaserArt\obj\Debug\LaserArt.pdb
+D:\reStore\LaserArt\bin\ImageResizer.dll
+D:\reStore\LaserArt\bin\ImageResizer.xml

@@ -28,11 +28,14 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="bin/EntityFramework.SqlServer.dll">
       <publishTime>03/02/2015 20:32:26</publishTime>
     </File>
+    <File Include="bin/ImageResizer.dll">
+      <publishTime>09/13/2017 15:59:58</publishTime>
+    </File>
     <File Include="bin/LaserArt.dll">
-      <publishTime>09/28/2017 15:50:38</publishTime>
+      <publishTime>10/01/2017 10:36:58</publishTime>
     </File>
     <File Include="bin/LaserArt.pdb">
-      <publishTime>09/28/2017 15:50:38</publishTime>
+      <publishTime>10/01/2017 10:36:58</publishTime>
     </File>
     <File Include="bin/Microsoft.AI.Agent.Intercept.dll">
       <publishTime>12/01/2016 03:07:42</publishTime>
@@ -269,7 +272,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/15/2017 13:26:51</publishTime>
     </File>
     <File Include="packages.config">
-      <publishTime>08/30/2017 01:32:16</publishTime>
+      <publishTime>10/01/2017 09:19:26</publishTime>
     </File>
     <File Include="Scripts/bootstrap.js">
       <publishTime>08/04/2017 12:39:05</publishTime>
@@ -419,7 +422,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>08/04/2017 12:39:20</publishTime>
     </File>
     <File Include="Views/Shared/_Layout.cshtml">
-      <publishTime>09/28/2017 16:15:24</publishTime>
+      <publishTime>10/01/2017 09:09:00</publishTime>
     </File>
     <File Include="Views/Shared/_LoginPartial.cshtml">
       <publishTime>08/04/2017 12:39:20</publishTime>
@@ -431,7 +434,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>08/04/2017 12:38:50</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>09/27/2017 22:31:11</publishTime>
+      <publishTime>10/01/2017 10:37:28</publishTime>
     </File>
   </ItemGroup>
 </Project>

@@ -1,4 +1,5 @@
-﻿using LaserArt.Models;
+﻿using ImageResizer;
+using LaserArt.Models;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -73,6 +74,10 @@ namespace LaserArt.Controllers
         {
             try
             {
+                newProduct.ImageSource1 = newProduct.ImageSource1 == null ? "" : newProduct.ImageSource1;
+                newProduct.ImageSource2 = newProduct.ImageSource2 == null ? "" : newProduct.ImageSource1;
+                newProduct.ImageSource3 = newProduct.ImageSource3 == null ? "" : newProduct.ImageSource1;
+
                 newProduct.SaveProduct();
                 return RedirectToAction("Index");
             }
@@ -148,7 +153,13 @@ namespace LaserArt.Controllers
                                    Server.MapPath("~/images"), pic);
             // file is uploaded
             file.SaveAs(path);
-
+            ResizeSettings resizeSetting = new ResizeSettings
+            {
+                Width = 300,
+                Height = 300,
+                Format = file.FileName.Split('.')[1]
+            };
+            ImageBuilder.Current.Build(path, path, resizeSetting);
             // save the image path path to the database or you can send image 
             // directly to database
             // in-case if you want to store byte[] ie. for DB

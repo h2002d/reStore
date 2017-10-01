@@ -1,6 +1,7 @@
 ﻿using LaserArt.DAO;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
@@ -19,15 +20,23 @@ namespace LaserArt.Models
         public decimal PriceDiscounted { get; set; }
         [Required]
         public string ImageSource { get; set; }
-        [Required]
-        public string ImageSource1 { get; set; }
-        [Required]
-        public string ImageSource2 { get; set; }
-        [Required]
-        public string ImageSource3 { get; set; }
+        [DefaultValue("")]
+        public string ImageSource1 { get; set; } = "";
+        [DefaultValue("")]
+
+        public string ImageSource2 { get; set; } = "";
+        [DefaultValue("")]
+
+        public string ImageSource3 { get; set; } = "";
         [Required]
         public int CategoryId { get; set; }
 
+        public Product():base()
+        {
+            this.ImageSource1 = "";
+            this.ImageSource2 = "";
+            this.ImageSource3 = "";
+        }
         public Product SaveProduct()
         {
             return ProductDAO.saveProduct(this);
