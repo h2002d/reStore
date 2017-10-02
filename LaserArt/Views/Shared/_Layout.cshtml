@@ -195,7 +195,13 @@
                 window.location = "/home/product/" + $(this).attr('id');
             });
             $('.adminOrderRow').click(function () {
-                window.location = "/admin/orderdetails/?OrderId=" + $(this).attr('id');
+                window.location = "/admin/orderdetails/?OrderId=" + $(this).parent().attr('id');
+            });
+            $('.orderSetStatus').click(function () {
+                var orderId = $(this).parent().parent().attr('id');
+                var status = $('input[name=orderStatus_' + orderId+']:checked').val();
+                alert('Статус изменен');
+                window.location = "/admin/ChangeOrderStatus/?orderId=" +orderId  + "&status=" + status;
             });
             $('.deleteProduct').click(function () {
                 var id = $(this).attr('id');

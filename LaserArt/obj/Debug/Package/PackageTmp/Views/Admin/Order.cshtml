@@ -10,29 +10,35 @@
     <h4>Order</h4>
     <hr />
     <table class="table table-striped">
-    <thead>
-        <tr>
-            <th>Номер</th>
-            <th>Имя покупателья</th>
-            <th>Адрес</th>
-            <th>Время</th>
-
-        </tr>
-
-    </thead>
+        <thead>
+            <tr>
+                <th>Номер</th>
+                <th>Имя покупателья</th>
+                <th>Адрес</th>
+                <th>Время</th>
+                <th>Состояние</th>
+            </tr>
+        </thead>
         <tbody>
 
             @foreach (var item in Model)
             {
-                <tr id="@item.Id"class="adminOrderRow">
-                    <td>@item.Id</td>
-                    <td>@item.Name @item.SurName</td>
-                    <td>@item.Address</td>
-                    <td>@item.OrderDate</td>
+                <tr id="@item.Id" @(item.Status==0 ? "style=background-color:yellow;":item.Status==1? "style=background-color:green;":item.Status==2?"style=background-color:gray;":"") >
+                    <td  class="adminOrderRow">@item.Id</td>
+                    <td  class="adminOrderRow">@item.Name @item.SurName</td>
+                    <td  class="adminOrderRow">@item.Address</td>
+                    <td  class="adminOrderRow">@item.OrderDate</td>
+                    <td>
+                        <input type="radio" name="orderStatus_@item.Id" @(item.Status==0?"checked":"") value="0">В процессе
+                        <input type="radio" name="orderStatus_@item.Id" @(item.Status==1?"checked":"") value="1">Доставлено
+                        <input type="radio" name="orderStatus_@item.Id" @(item.Status==2?"checked":"") value="2">Закрыто
+                        <input type="button" class="orderSetStatus" value="Сохранить" />
+                    </td>
+
                 </tr>
             }
-            </tbody>
+        </tbody>
 
-</table>
+    </table>
 </div>
 

@@ -17,7 +17,7 @@ namespace LaserArt.Models
         public DateTime OrderDate { get; set; }
         public string Latitide { get; set; }
         public string Longitude { get; set; }
-        public bool isCompleted { get; set; }
+        public int Status { get; set; } //0 open,1 shipped,2closed
         public List<CardModel> Products{ get; set; }
         public Order()
         {
@@ -32,6 +32,10 @@ namespace LaserArt.Models
         public static List<Order> GetOrderById(int? id)
         {
             return OrderDAO.getOrdersById(id);
+        }
+        public static void ChangeOrderStatus(int orderId,int status)
+        {
+            OrderDAO.changeOrderStatus(orderId, status); 
         }
     }
 }

@@ -109,7 +109,7 @@ namespace LaserArt.Controllers
         public ActionResult DeleteCategory(int id)
         {
             Models.Category.DeleteCategory(id);
-            return View("Index");
+            return RedirectToAction("Index");
         }
 
         [HttpPost]
@@ -257,11 +257,28 @@ namespace LaserArt.Controllers
                 }
 
             }
-            
-                ViewBag.Recommended = Models.Product.GetProducts(null).Take(6);
+            List<Models.Product> prod = new List<Models.Product>();
+            var recommendedList= Models.Product.GetProducts(null).Take(18);
+            List<int> randomList = new List<int>();
+            Random rnd = new Random();
+            while (true)
+            {
+              
+                int r = rnd.Next(recommendedList.Count());
+                if (!randomList.Contains(r))
+                    randomList.Add(r);
+                if (randomList.Count >= 3)
+                    break;
+            }
+            foreach(int item in randomList)
+            {
+                prod.Add(recommendedList.ElementAt(item));
+            }
+            ViewBag.Recommended = prod;
             ViewBag.Sum = sum;
             return View(productList);
         }
+
         [HttpPost]
         public ActionResult RemoveCard(int id)
         {
@@ -334,6 +351,7 @@ namespace LaserArt.Controllers
             newOrder.saveOrder();
             return Json("Заказ оформлен, наши сотрудники свяжутся с вами в течении часа.", JsonRequestBehavior.AllowGet);
         }
+
         [HttpGet]
         public ActionResult OrderDetails(int? id)
         {

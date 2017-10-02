@@ -8,9 +8,9 @@ using System.Web;
 
 namespace LaserArt.DAO
 {
-    public class OrderDAO:DAO
+    public class OrderDAO : DAO
     {
-        public static List<Order> getOrdersById(int? id )
+        public static List<Order> getOrdersById(int? id)
         {
             using (SqlConnection sqlConnection = new SqlConnection(connectionString))
             {
@@ -29,8 +29,8 @@ namespace LaserArt.DAO
                         SqlDataReader rdr = command.ExecuteReader();
                         while (rdr.Read())
                         {
-                           
-                           
+
+
                             Order newOrder = new Order();
                             newOrder.Id = Convert.ToInt32(rdr["Id"]);
                             newOrder.Address = rdr["Address"].ToString();
@@ -40,8 +40,7 @@ namespace LaserArt.DAO
                             newOrder.Name = rdr["Name"].ToString();
                             newOrder.SurName = rdr["SurName"].ToString();
                             newOrder.OrderDate = Convert.ToDateTime(rdr["OrderDate"]);
-                            newOrder.isCompleted = Convert.ToBoolean(rdr["isCompleted"]==DBNull.Value);
-                            
+                            newOrder.Status = Convert.ToInt32(rdr["Status"]);
                             newProductList.Add(newOrder);
                         }
 
@@ -53,7 +52,7 @@ namespace LaserArt.DAO
                     }
                 }
 
-              
+
                 return newProductList;
             }
 
@@ -79,11 +78,11 @@ namespace LaserArt.DAO
                         //    command.Parameters.AddWithValue("@isCompleted", 1);
                         //else
                         //    command.Parameters.AddWithValue("@isCompleted", Boolean.FalseString);
-                        
+
                         var id = command.ExecuteScalar();
                         foreach (var item in newProduct.Products)
                         {
-                            SqlCommand cmd = new SqlCommand("sp_SaveOrderProducts",sqlConnection);
+                            SqlCommand cmd = new SqlCommand("sp_SaveOrderProducts", sqlConnection);
                             cmd.CommandType = CommandType.StoredProcedure;
                             cmd.Parameters.AddWithValue("@OrderId", Convert.ToInt32(id));
                             cmd.Parameters.AddWithValue("@ProductId", item.ProductId);
@@ -98,6 +97,27 @@ namespace LaserArt.DAO
                         throw ex;
                     }
 
+                }
+            }
+        }
+        public static void changeOrderStatus(int id, int status)
+        {
+            using (SqlConnection sqlConnection = new SqlConnection(connectionString))
+            {
+                using (SqlCommand command = new SqlCommand("sp_SetOrderStatus", sqlConnection))
+                {
+                    try
+                    {
+                        sqlConnection.Open();
+                        command.CommandType = CommandType.StoredProcedure;
+                        command.Parameters.AddWithValue("@OrderId", id);
+                        command.Parameters.AddWithValue("@OrderStatus", status);
+                        command.ExecuteNonQuery();
+                    }
+                    catch (Exception ex)
+                    {
+                        throw ex;
+                    }
                 }
             }
         }
