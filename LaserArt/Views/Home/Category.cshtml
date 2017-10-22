@@ -14,12 +14,12 @@
     }
     @foreach (var item in Model)
     {
-        if (count % 3 == 0 && count == 0)
+        if (count % 3 == 0 || count == 0)
         {
             @Html.Raw("<div class=\"row\" id=\"" + count + "\">");
         }
         
-        <div class="col-md-4">
+        <div class="col-md-4 item-div">
             @if (this.User.IsInRole("Administrator"))
             {
             <a href="/home/editproduct/@item.Id">Изменить</a>
@@ -38,12 +38,15 @@
                 </div>
             </div>
         </div>
-        if (count % 3 == 0 && count == 0)
+        if (count % 2 == 0 && count != 0)
         {
-            Html.Raw("</div>");
-
+            @Html.Raw("</div>");
+            count = 0;
         }
-        count++;
+        else
+        {
+            count++;
+        }
 
     }
 </div>
