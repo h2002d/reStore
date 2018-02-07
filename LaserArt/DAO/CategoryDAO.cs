@@ -8,9 +8,9 @@ using System.Web;
 
 namespace LaserArt.DAO
 {
-    public class CategoryDAO:DAO
+    public class CategoryDAO : DAO
     {
-        public static List<Category> getProducts(int? id)
+        public static List<Category> getCategories(int? id)
         {
 
             using (SqlConnection sqlConnection = new SqlConnection(connectionString))
@@ -32,7 +32,7 @@ namespace LaserArt.DAO
                             Category newCategory = new Category();
                             newCategory.Id = Convert.ToInt32(rdr["Id"]);
                             newCategory.CategoryName = rdr["CategoryName"].ToString();
-
+                            newCategory.ParentId = Convert.ToInt32(rdr["ParentId"]);
                             newCategoryList.Add(newCategory);
                         }
                         return newCategoryList;
@@ -68,7 +68,7 @@ namespace LaserArt.DAO
             }
         }
 
-        public static Category saveProduct(Category newCategory)
+        public static Category saveCategory(Category newCategory)
         {
 
             using (SqlConnection sqlConnection = new SqlConnection(connectionString))
@@ -84,8 +84,9 @@ namespace LaserArt.DAO
                         else
                             command.Parameters.AddWithValue("@Id", newCategory.Id);
                         command.Parameters.AddWithValue("@CategoryName", newCategory.CategoryName);
+                        command.Parameters.AddWithValue("@ParentId", newCategory.ParentId);
                         command.ExecuteNonQuery();
-                        
+
                         return newCategory;
                     }
                     catch (Exception ex)

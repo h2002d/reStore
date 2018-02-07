@@ -11,7 +11,7 @@ namespace LaserArt.Controllers
     {
         public AdminController()
         {
-            ViewBag.Categories = LaserArt.Models.Category.GetCategories(null);
+            ViewBag.Categories = LaserArt.Models.ParentCategory.GetCategories(null);
         }
         // GET: Admin
         [Authorize(Roles = "Administrator")]
@@ -25,11 +25,14 @@ namespace LaserArt.Controllers
             var model=Models.Order.GetOrderById(null);
             return View(model);
         }
+
+        
         [Authorize(Roles = "Administrator")]
         public ActionResult OrderDetails(int OrderId)
         {
             
             var product = Product.GetProductsByOrderId(OrderId);
+            
             return View(product);
         }
         [Authorize(Roles = "Administrator")]
@@ -37,6 +40,13 @@ namespace LaserArt.Controllers
         {
             Models.Order.ChangeOrderStatus(orderId, status);
            return RedirectToAction("Order");
+        }
+
+        [Authorize(Roles = "Administrator")]
+        public ActionResult DeleteSpecification(int id)
+        {
+            Models.ProductSpecification.Delete(id);
+            return Redirect(Request.UrlReferrer.ToString());
         }
     }
 }

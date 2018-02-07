@@ -1,6 +1,7 @@
 ﻿using LaserArt.DAO;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -10,9 +11,14 @@ namespace LaserArt.Models
     {
         public int Id { get; set; }
         public List<int> ProductId { get; set; }
+        [Required]
         public string Address { get; set; }
+        [Required]
         public string Name { get; set; }
+        [Required]
         public string SurName { get; set; }
+        [Required]
+        [DataType(DataType.PhoneNumber)]
         public string PhoneNumber { get; set; }
         public DateTime OrderDate { get; set; }
         public string Latitide { get; set; }

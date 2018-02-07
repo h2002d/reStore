@@ -1,4 +1,6 @@
-﻿body {
+﻿@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+
+body {
     /*padding-top: 50px;*/
     padding-bottom: 20px;
     background: url("../images/backgroundBlur.jpg") no-repeat center center fixed;
@@ -7,11 +9,12 @@
     -o-background-size: cover;
     background-size: cover;
 }
+
 @media (min-width: 768px) {
     .sidebar-nav .navbar .navbar-collapse {
         padding: 0;
         max-height: none;
-        margin-bottom:100px;
+        margin-bottom: 100px;
     }
 
     .sidebar-nav .navbar ul {
@@ -24,17 +27,17 @@
         display: block;
     }
 
-        .sidebar-nav .navbar li a {
-            padding-top: 12px;
-            padding-bottom: 12px;
-        }
+    .sidebar-nav .navbar {
+        padding-top: 12px;
+        padding-bottom: 12px;
+    }
 }
 /* Set padding to keep content from hitting the edges */
 .body-content {
     padding-right: 0px !important;
     padding-left: 15px;
-    background-color:white;
-    min-height:50%;
+    background-color: white;
+    min-height: 50%;
 }
 
 /* Override the default bootstrap behavior where horizontal description lists 
@@ -50,53 +53,62 @@ select,
 textarea {
     max-width: 280px;
 }
+
 .imageHeader {
-    width: 50%;
+    width: 40%;
     height: auto;
-    max-height:50%;
+    max-height: 50%;
 }
+
 .mainlogo {
     width: 100%;
     height: auto;
 }
+
 .mySlides {
     display: none;
-   
 }
+
 .myslideImage {
     width: 100%;
     height: auto;
-    max-height: 300px;
+    max-height: 350px;
 }
+
 .w3-content .w3-section {
     width: 100%;
 }
-.productPagehr{
-    border-top:1px solid #000000;
+
+.productPagehr {
+    border-top: 1px solid #000000;
 }
+
 .productpageh3 {
     color: #0066ff;
     font-weight: bold;
 }
-.product{
-    float:left;
-   
+
+.product {
+    float: left;
 }
-.orderItem{
+
+.orderItem {
     border: 1px solid #808080;
-    margin-bottom:5px;
-    padding:5px;
-    }
+    margin-bottom: 5px;
+    padding: 5px;
+}
 /*.btn-accept-order{
 
 }*/
 
-.jumbotron{
-    background-color:#ffffff !important;
+.jumbotron {
+    background-color: #ffffff !important;
 }
-.adminOrderRow{
-    cursor:pointer;
+
+.adminOrderRow {
+    cursor: pointer;
 }
+
 .headerSpan {
     display: inline-block;
     vertical-align: middle;
@@ -107,19 +119,17 @@ textarea {
 .table-striped > tbody > tr:nth-child(odd) > th {
     background-color: transparent !important;
 }
-    
+
 
 .top-menu {
-    background-color: black;
+    background-color: #323232;
     padding: 20px 0 20px 20px;
     color: #ffffff;
-    margin-bottom: 15px !important;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
-    margin-top: 80px;
-    margin-left: 0 !important;
-    margin-right: 0 !important;
+    margin: 0 15px 0 !important;
 }
+
 .inner-addon {
     position: relative;
 }
@@ -144,20 +154,49 @@ textarea {
 .left-addon input {
     padding-left: 30px;
 }
-.header-text 
-{
-    text-align:center;
+
+.header-text {
+    text-align: center;
 }
+
 .right-addon input {
     padding-right: 30px;
 }
-.top-menu-header{
-    font-size:20px;
+
+.top-menu-header {
+    font-size: 20px;
 }
+
 .top-menu-item {
     float: right;
-    margin-right:10px;
+    margin-right: 10px;
 }
+
+.toolbar-right a {
+    padding: 10px;
+}
+
+    .toolbar-right a:hover {
+        color: #888888;
+    }
+
+li a {
+    color: white !important;
+}
+
+    li a:hover {
+        color: #888888 !important;
+    }
+
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 5px;
+}
+
 #myBtn {
     display: none; /* Hidden by default */
     position: fixed; /* Fixed/sticky position */
@@ -176,6 +215,7 @@ textarea {
     #myBtn:hover {
         background-color: #555; /* Add a dark-grey background on hover */
     }
+
 .toolbar {
     position: fixed;
     width: 100%;
@@ -183,20 +223,76 @@ textarea {
     left: 0;
     bottom: 0;
     background: black;
-    z-index:9999999;
+    z-index: 9999999;
 }
+
+#orderDetails {
+    display: none;
+    width: 20%;
+    height: 20%;
+    padding: 20px;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    z-index: 999999999;
+    background-color: white;
+    box-shadow: 5px 5px 2px #888888;
+    border-radius: 10px;
+}
+
+.top-banner {
+    margin-top: 50px;
+}
+
+.toolbar-left {
+    float: left;
+    margin: 6px 0;
+    padding-left: 370px;
+}
+
+    .toolbar-left a {
+        text-decoration: none;
+        color: white;
+    }
+
+        .toolbar-left a:hover {
+            color: #d1d1d1;
+        }
+
 .toolbar-right {
     float: right;
-    width: 510px;
-    margin: 6px 0;
+    margin: 12px 0;
 }
-.footer-btn{
-    background-color:black !important;
-    color:#ffffff;
+
+    .toolbar-right a {
+        text-decoration: none;
+        color: white;
+    }
+
+        .toolbar-right a :hover {
+            color: #d1d1d1;
+        }
+
+.card-class {
+    color: white;
 }
-.footer-btn:hover {
-    background-color:#555 !important;
+
+    .card-class:hover {
+        color: #d1d1d1;
+    }
+
+.footer-btn {
+    background-color: black !important;
+    color: #ffffff;
 }
+
+    .footer-btn:hover {
+        background-color: #555 !important;
+    }
+
 .field-validation-valid {
     display: none;
 }
@@ -204,31 +300,131 @@ textarea {
 .validation-summary-valid {
     display: none;
 }
+
 .all_1 {
     display: inline-block;
 }
+
 .iconImg {
-    width: 100%;
-    height: auto;
+    width: 60px;
+    height: 60px;
     cursor: pointer;
 }
-#generalImg {
+
+.col-color {
+    height:60px;
+    padding:0;
+}#generalImg {
     width: 100%;
     height: auto;
 }
-#cardQuantity{
-    width:50px;
+
+#cardQuantity {
+    width: 50px;
 }
-.cardIcon{
-    width:auto;
-    height:16px;
-    margin-right:10px;
+
+.cardIcon {
+    width: auto;
+    height: 16px;
+    margin-right: 10px;
 }
-.item-div
-{
-    cursor:pointer;
+
+.item-div {
+    cursor: pointer;
+    padding: 20px;
 }
-.item-div:hover
-{
-    border:1px solid #d1d1d1;
+
+    .item-div:hover {
+        border: 1px solid #d1d1d1;
+        padding: 20px;
+    }
+
+.btn-buy {
+    border-radius: 5px;
+    -webkit-box-reflect: below 0 -webkit-gradient(linear, left top, left bottom, from(transparent), color-stop(0.7, transparent), to(white));
+    background: linear-gradient(white, rgb(50, 50, 50)) !important;
 }
+
+    .btn-buy:hover {
+        background: rgb(39, 39, 39) !important;
+        color: white !important;
+    }
+
+.item-specification {
+    text-decoration: solid;
+    cursor: pointer;
+}
+
+.item-specification:hover{
+    color:#d1d1d1;
+}
+
+.specification-active {
+    color: #d1d1d1;
+}
+.color-active{
+    border: 1px solid #b3d8d6;
+}
+.color-label{
+    background: url('../images/colors.png')
+}
+.c-black-onyx-full {
+    background-position: 0 -814px;
+}
+.c-grey-full {
+    background-position: 0 -814px;
+}
+.c-black-full {
+    background-position: 0 -872px;
+}
+.c-gold-full {
+    background-position: 0 -699px;
+}
+.c-rose-full {
+    background-position: 0 -756px;
+}
+.c-white-full {
+    background-position: 0 -583px;
+}
+.c-red-full {
+    background: none;
+    background-color: #af232e;
+}
+.dropbtn {
+    background-color: #323232;
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #808080;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+    .dropdown-content a {
+        color: black;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+    }
+
+        .dropdown-content a:hover {
+            background-color: #f1f1f1
+        }
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+

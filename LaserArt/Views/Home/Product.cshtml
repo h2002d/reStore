@@ -1,45 +1,107 @@
 ﻿@model LaserArt.Models.Product
 
 @{
-    ViewBag.Title =Model.ProductTitle;
+    ViewBag.Title = Model.ProductTitle;
 }
 <div class="jumbotron">
-    <h2 class="h1">@Model.ProductTitle</h2>
+    <h3 class="h1"><b>@Model.ProductTitle</b></h3>
     @if (this.User.IsInRole("Administrator"))
     {
         <a id="@Model.Id" class="deleteProduct">Удалить</a>
     }
     <div class="container">
         <div class="row">
-            <div class="col-md-6">
-                <img src="@Model.ImageSource" class="imageHeader" id="generalImg" />
-                <div class="row">
-                    <div class="col-md-2">
-                        <img src="@Model.ImageSource" class="imageHeader iconImg" />
-                    </div>
-                    <div class="col-md-2">
-                        <img src="@Model.ImageSource1" class="imageHeader iconImg" />
-                    </div>
-                    <div class="col-md-2">
-                        <img src="@Model.ImageSource2" class="imageHeader iconImg" />
-                    </div>
-                    <div class="col-md-2">
-                        <img src="@Model.ImageSource3" class="imageHeader iconImg" />
-                    </div>
+            <div class="col-sm-6">
+                <div class="col-sm-12">
+                    <img src="@Model.ImageSource" class="imageHeader" id="generalImg" />
                 </div>
-                </div>
-            <div class="col-md-6">
-                <hr class="productPagehr">
+
+            </div>
+            <div class="col-sm-6">
+                <p>Выберите цвет:</p>
               
-                <p> <h class="productpageh3">Цена:</h>@Model.Price руб.</p>
-                @if (@Model.PriceDiscounted != 0)
-                {
-                    <del> @Model.PriceDiscounted</del>
-                }
+                <div class="row">
+                    <div class="col-sm-2 col-color">
+                        <div id="@Model.Color" class="@Model.Color iconImg color-label item-color item-color"></div>
+                        <input type="hidden" value="@Model.ImageSource" class="imageSrc" />
+                    </div>
+                    @if (!String.IsNullOrEmpty(Model.Color1))
+                    {
+                        <div class="col-sm-2 col-color">
+                            <div id="@Model.Color1" class="@Model.Color1 iconImg color-label item-color"></div>
+
+                            <input type="hidden" value="@Model.ImageSource1" class="imageSrc" />
+
+                        </div>
+                    }
+
+                    @if (!String.IsNullOrEmpty(Model.Color2))
+                    {
+
+                        <div class="col-sm-2 col-color">
+                            <div id="@Model.Color2" class="@Model.Color2 iconImg color-label item-color"></div>
+                            <input type="hidden" value="@Model.ImageSource2" class="imageSrc" />
+
+                        </div>
+                    }
+
+                    @if (!String.IsNullOrEmpty(Model.Color3))
+                    {
+                        <div class="col-sm-2 col-color">
+                            <div id="@Model.Color3" class="@Model.Color3 iconImg color-label item-color"></div>
+                            <input type="hidden" value="@Model.ImageSource3" class="imageSrc" />
+
+                        </div>
+                    }
+                    @if (!String.IsNullOrEmpty(Model.Color4))
+                    {
+
+                        <div class="col-sm-2 col-color">
+                            <div id="@Model.Color4" class="@Model.Color4 iconImg color-label item-color"></div>
+                            <input type="hidden" value="@Model.ImageSource4" class="imageSrc" />
+
+                        </div>
+                    }
+                    @if (!String.IsNullOrEmpty(Model.Color5))
+                    {
+                        <div class="col-sm-2 col-color ">
+                            <div id="@Model.Color5" class="@Model.Color5 iconImg color-label item-color"></div>
+                            <input type="hidden" value="@Model.ImageSource5" class="imageSrc" />
+
+                        </div>
+                    }
+                    @if (!String.IsNullOrEmpty(Model.Color6))
+                    {
+                        <div class="col-sm-2 col-color">
+                            <div id="@Model.Color6" class="@Model.Color6 iconImg color-label item-color"></div>
+                            <input type="hidden" value="@Model.ImageSource6" class="imageSrc" />
+                        </div>
+                    }
+                </div>
+                <p>Выберите объем памяти:</p>
+                <div class="row">
+                    @{
+                        int i = 0;
+                        foreach (var item in ViewBag.ProductSpecification)
+                        {
+                            <div class="col-sm-3" style="font-size:15px;">
+                                <p style="font-weight:800;" id="@item.id" class="item-specification @(i==0 ? "specification-active" : "")">@item.SpecificationName</p>
+                                <p>@item.Price руб.</p>
+                            </div>
+                            i++;
+                        }
+                    }
+                </div>
+
+                @*<p> <h class="productpageh3">Цена:</h>@Model.Price руб.</p>
+                    @if (@Model.PriceDiscounted != 0)
+                    {
+                        <del> @Model.PriceDiscounted</del>
+                    }*@
                 <hr class="productPagehr">
-                <input type="number" id="cardQuantity"  value="1" class="form-control"/>
-                <div style="color:red"id="cardQuantityRequired"></div>
-                <input type="button" value="Добавить в корзину +" class="btn btn-default" onclick="addToCard(@Model.Id)"/>
+                <input type="number" id="cardQuantity" min="1" step="1" value="1" class="form-control" />
+                <div style="color:red; font-size:12px;" id="cardQuantityRequired"></div>
+                <input type="button" value="Добавить в корзину +" class="btn btn-default  btn-buy" onclick="addToCard(@Model.Id)" />
                 <h2 class="productpageh3">Техническое описание</h2>
                 @Html.Raw(Model.ProductDescription)
                 <hr class="productPagehr">

@@ -33,11 +33,23 @@ namespace LaserArt.DAO
                         command.Parameters.AddWithValue("@ImageSource1", newProduct.ImageSource1);
                         command.Parameters.AddWithValue("@ImageSource2", newProduct.ImageSource2);
                         command.Parameters.AddWithValue("@ImageSource3", newProduct.ImageSource3);
+                        command.Parameters.AddWithValue("@ImageSource4", newProduct.ImageSource4);
+                        command.Parameters.AddWithValue("@ImageSource5", newProduct.ImageSource5);
+                        command.Parameters.AddWithValue("@ImageSource6", newProduct.ImageSource6);
+
+                        command.Parameters.AddWithValue("@Color", newProduct.Color);
+                        command.Parameters.AddWithValue("@Color1", newProduct.Color1==null? "": newProduct.Color1);
+                        command.Parameters.AddWithValue("@Color2", newProduct.Color2 == null ? "" : newProduct.Color2);
+                        command.Parameters.AddWithValue("@Color3", newProduct.Color3 == null ? "" : newProduct.Color3);
+                        command.Parameters.AddWithValue("@Color4", newProduct.Color4 == null ? "" : newProduct.Color4);
+                        command.Parameters.AddWithValue("@Color5", newProduct.Color5 == null ? "" : newProduct.Color5);
+                        command.Parameters.AddWithValue("@Color6", newProduct.Color6 == null ? "" : newProduct.Color6);
+
                         command.Parameters.AddWithValue("@CategoryId", newProduct.CategoryId);
                         command.Parameters.AddWithValue("@Price", newProduct.Price);
                         command.Parameters.AddWithValue("@PriceDiscounted", newProduct.PriceDiscounted);
 
-                        command.ExecuteNonQuery();
+                        newProduct.Id=Convert.ToInt32(command.ExecuteScalar());
                         return newProduct;
                     }
                     catch (Exception ex)
@@ -75,6 +87,16 @@ namespace LaserArt.DAO
                             newProduct.ImageSource1 = rdr["ImageSource1"].ToString();
                             newProduct.ImageSource2 = rdr["ImageSource2"].ToString();
                             newProduct.ImageSource3 = rdr["ImageSource3"].ToString();
+                            newProduct.ImageSource4 = rdr["ImageSource4"].ToString();
+                            newProduct.ImageSource5 = rdr["ImageSource5"].ToString();
+                            newProduct.ImageSource6 = rdr["ImageSource6"].ToString();
+                            newProduct.Color = rdr["Color"].ToString();
+                            newProduct.Color1 = rdr["Color1"].ToString();
+                            newProduct.Color2 = rdr["Color2"].ToString();
+                            newProduct.Color3 = rdr["Color3"].ToString();
+                            newProduct.Color4 = rdr["Color4"].ToString();
+                            newProduct.Color5 = rdr["Color5"].ToString();
+                            newProduct.Color6 = rdr["Color6"].ToString();
                             newProduct.Price =Convert.ToDecimal(rdr["Price"]);
                             newProduct.PriceDiscounted = rdr["PriceDiscounted"]==DBNull.Value? 0:Convert.ToDecimal(rdr["PriceDiscounted"]);
                             newProduct.CategoryId = Convert.ToInt32(rdr["CategoryId"]);
@@ -113,10 +135,19 @@ namespace LaserArt.DAO
                             newProduct.ProductTitle = rdr["ProductTitle"].ToString();
                             newProduct.ProductDescription = rdr["ProductDescription"].ToString();
                             newProduct.ImageSource = rdr["ImageSource"].ToString();
-
                             newProduct.ImageSource1 = rdr["ImageSource1"].ToString();
                             newProduct.ImageSource2 = rdr["ImageSource2"].ToString();
                             newProduct.ImageSource3 = rdr["ImageSource3"].ToString();
+                            newProduct.ImageSource4 = rdr["ImageSource4"].ToString();
+                            newProduct.ImageSource5 = rdr["ImageSource5"].ToString();
+                            newProduct.ImageSource6 = rdr["ImageSource6"].ToString();
+                            newProduct.Color = rdr["Color"].ToString();
+                            newProduct.Color1 = rdr["Color1"].ToString();
+                            newProduct.Color2 = rdr["Color2"].ToString();
+                            newProduct.Color3 = rdr["Color3"].ToString();
+                            newProduct.Color4 = rdr["Color4"].ToString();
+                            newProduct.Color5 = rdr["Color5"].ToString();
+                            newProduct.Color6 = rdr["Color6"].ToString();
                             newProduct.Price = Convert.ToDecimal(rdr["Price"]);
                             newProduct.CategoryId = Convert.ToInt32(rdr["CategoryId"]);
                             newProduct.PriceDiscounted = rdr["PriceDiscounted"]==DBNull.Value? 0:Convert.ToDecimal(rdr["PriceDiscounted"]);
@@ -157,12 +188,25 @@ namespace LaserArt.DAO
                             newProduct.ImageSource1 = rdr["ImageSource1"].ToString();
                             newProduct.ImageSource2 = rdr["ImageSource2"].ToString();
                             newProduct.ImageSource3 = rdr["ImageSource3"].ToString();
+                            newProduct.ImageSource4= rdr["ImageSource4"].ToString();
+                            newProduct.ImageSource5 = rdr["ImageSource5"].ToString();
+                            newProduct.ImageSource6 = rdr["ImageSource6"].ToString();
+                            newProduct.Color = rdr["Color"].ToString();
+                            newProduct.Color1 = rdr["Color1"].ToString();
+                            newProduct.Color2 = rdr["Color2"].ToString();
+                            newProduct.Color3 = rdr["Color3"].ToString();
+                            newProduct.Color4 = rdr["Color4"].ToString();
+                            newProduct.Color5 = rdr["Color5"].ToString();
+                            newProduct.Color6 = rdr["Color6"].ToString();
+
                             newProduct.Price = Convert.ToDecimal(rdr["Price"]);
                             newProduct.CategoryId = Convert.ToInt32(rdr["CategoryId"]);
                             newProduct.PriceDiscounted = rdr["PriceDiscounted"] == DBNull.Value ? 0 : Convert.ToDecimal(rdr["PriceDiscounted"]);
                             CardModel model = new CardModel();
                             model.ProductQuantity = Convert.ToInt32(rdr["Quantity"]);
                             model.product = newProduct;
+                            model.Specification = ProductSpecification.GetProductSpecificationById(Convert.ToInt32(rdr["SpecificationId"])).First();
+                            model.Color = rdr["Color"].ToString();
                             newProductList.Add(model);
                         }
                         return newProductList;
@@ -196,10 +240,20 @@ namespace LaserArt.DAO
                             newProduct.ProductTitle = rdr["ProductTitle"].ToString();
                             newProduct.ProductDescription = rdr["ProductDescription"].ToString();
 
+                            newProduct.ImageSource = rdr["ImageSource"].ToString();
                             newProduct.ImageSource1 = rdr["ImageSource1"].ToString();
                             newProduct.ImageSource2 = rdr["ImageSource2"].ToString();
                             newProduct.ImageSource3 = rdr["ImageSource3"].ToString();
-                            newProduct.ImageSource = rdr["ImageSource"].ToString();
+                            newProduct.ImageSource4 = rdr["ImageSource4"].ToString();
+                            newProduct.ImageSource5 = rdr["ImageSource5"].ToString();
+                            newProduct.ImageSource6 = rdr["ImageSource6"].ToString();
+                            newProduct.Color = rdr["Color"].ToString();
+                            newProduct.Color1 = rdr["Color1"].ToString();
+                            newProduct.Color2 = rdr["Color2"].ToString();
+                            newProduct.Color3 = rdr["Color3"].ToString();
+                            newProduct.Color4 = rdr["Color4"].ToString();
+                            newProduct.Color5 = rdr["Color5"].ToString();
+                            newProduct.Color6 = rdr["Color6"].ToString();
                             newProduct.Price = Convert.ToDecimal(rdr["Price"]);
                             newProduct.PriceDiscounted = rdr["PriceDiscounted"] == DBNull.Value ? 0 : Convert.ToDecimal(rdr["PriceDiscounted"]);
                             newProduct.CategoryId = Convert.ToInt32(rdr["CategoryId"]);

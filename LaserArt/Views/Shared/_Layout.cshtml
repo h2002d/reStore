@@ -3,19 +3,26 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - Re:Store Family ── Сеть фирменых магазинов техники Apple и Samsung  в Москве. Официальный представитель. Оригинальная  продукция Apple и Samsung</title>
+    <title>@ViewBag.Title - ReStore:Family ── Сеть фирменых магазинов техники Apple в Москве. Официальный представитель. Оригинальная  продукция Apple</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    <link rel="shortcut icon" href="~/images/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="~/images/favicon.ico" type="image/x-icon">
 
 </head>
 <body>
 
-    <div style="width:90%; margin:0 auto;">
-       
-            <div class="list-inline top-menu row">
-                <div class="col-md-3" style="font-size:30px;" title="Re:Store Family ── Сеть фирменых магазинов техники Apple и Samsung  в Москве. Официальный представитель. Оригинальная  продукция Apple и Samsung"><a href="/" style="text-decoration:none; color:white;">re:store Family</a></div>
-                
-                @if (Request.Cookies["Cart"] != null)
+
+
+    <div class="list-inline top-menu row" style="font-family:Spirax;">
+        <div class="col-sm-3" style="font-size:25px;font-family:Pacifico;" title="ReStore:Family ── Сеть фирменых магазинов техники Apple в Москве. Официальный представитель. Оригинальная  продукция Apple">
+            <a href="/" style="text-decoration:none; color:white; font-family: Arial Black, Gadget, sans-serif;">
+                ReStore:Family
+                <img src="~/images/24129470_1589222761134523_1264495214678145878_n.jpg" style="width:10%" />
+            </a>
+        </div>
+
+        @if (Request.Cookies["Cart"] != null)
             {
                 HttpCookie cookieOld = Request.Cookies["Cart"];
 
@@ -28,131 +35,209 @@
             {
                 ViewBag.CardCount = 0;
             }
-                @if (!Request.Browser.IsMobileDevice)
+        @if (!Request.Browser.IsMobileDevice)
             {
-                    <div class=" col-md-2 header-text" style="padding-top:5px;">
-                        <span class="headerSpan">Москва</span>
-                       
-                        <br />
-                        <span style="font-size:10px;">  московская область</span>
+            <div class=" col-md-2 header-text" style="padding-top:5px;">
+                <span class="headerSpan">Москва</span>
 
-                    </div>
-                    <div class=" col-md-2 header-text">                        
-                        <span class="headerSpan">Справочная служба</span>
-                         <br />
-                        <span style="font-weight:600 ;font-size:15px;">8 (800) 700-19-44</span>
-                          
-                            <br />
-                        <span style="font-size:10px;"> круглосуточно, без выходных</span>
-                           
-                    </div>
-                    <div class=" col-md-2" style="padding:7px"> <a href="/home/card"><img class="cardIcon" src="~/images/cardBasketIcon.png" />Корзина: <u>@ViewBag.CardCount</u> шт.</a></div>
-
-                    <div class=" col-md-3">
-                        <div class="inner-addon right-addon">
-                            <i class="glyphicon glyphicon-search" style="color:black"></i>
-                            <input type="text" id="searchArea" class="form-control" placeholder="Поиск..." />
-                        </div>
-                    </div>
-
-                    
-
-                }
-
+                <br />
             </div>
-            <div>
-                <div class="col-sm-3" style="padding:0;">
-                    <div class="sidebar-nav">
-                        <div class="navbar navbar-default" role="navigation">
-                            <div class="navbar-header">
-                                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-navbar-collapse">
-                                    <span class="sr-only"></span>
-                                    <span class="icon-bar"></span>
-                                    <span class="icon-bar"></span>
-                                    <span class="icon-bar"></span>
-                                </button>
-                                @if (Request.Browser.IsMobileDevice)
+                <div class=" col-md-2 header-text">
+                    <span class="headerSpan" style="font-family:Verdana, Geneva, sans-serif;">Справочная служба</span>
+                    <br />
+                    <span style="font-weight:600 ;font-size:15px; font-family:Verdana, Geneva, sans-serif;">8 (495) 203-03-08</span>
+
+                </div>
+                <div class=" col-md-2" style="padding:7px"> <a class="card-class" style="text-decoration:none;" href="/home/card"><img class="cardIcon" src="~/images/cardBasketIcon.png" />Корзина: <u>@ViewBag.CardCount</u> шт.</a></div>
+
+                <div class=" col-md-3">
+                    <div class="inner-addon right-addon">
+                        <input type="text" id="searchArea" class="form-control" placeholder="Поиск..." />
+                    </div>
+                </div>
+
+
+
+        }
+
+    </div>
+    <div style="width:90%; margin:0 auto;">
+        <div>
+            <div class="col-sm-3" style="padding-right:10px;padding-left:0;">
+                <div class="sidebar-nav">
+                    <div class="navbar navbar-default" style="background-color:#323232 !important;" role="navigation">
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-navbar-collapse">
+                                <span class="sr-only"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                            @if (Request.Browser.IsMobileDevice)
+                            {
+                                <input type="text" id="searchArea" style="margin:5px; width:70%;" class="form-control" placeholder="Поиск..." />
+                            }
+                        </div>
+                        <div class="navbar-collapse collapse sidebar-navbar-collapse">
+                            <ul class="nav navbar-nav" style="font-family:Verdana, Geneva, sans-serif; background-color:#323232; color:white;">
+                                <li>@Html.ActionLink("Главная", "Index", "Home")</li>
+                                @foreach (var item in ViewBag.Categories)
                                 {
-                                    <input type="text" id="searchArea" style="margin:5px; width:70%;" class="form-control" placeholder="Поиск..." />
+                                    <li>
+                                        <div class="dropdown">
+                                            <button class="dropbtn" @(this.User.IsInRole("Administrator")? "onclick=parentEdit("+@item.Id+")":"")>@item.ParentCategoryName</button>
+                                            <div class="dropdown-content">
+                                               @foreach (var child in item.Childs)
+                                               {
+                                                <a href="/home/Category/@child.Id">@child.CategoryName</a>
+                                               }
+                                            </div>
+                                           @* <a @(this.User.IsInRole("Administrator") ? "href=/home/editparentcategory/" + @item.Id : "")>@item.ParentCategoryName</a>*@
+
+                                        </div>
+                                    </li>
                                 }
-                            </div>
-                            <div class="navbar-collapse collapse sidebar-navbar-collapse">
-                                <ul class="nav navbar-nav">
-                                    <li>@Html.ActionLink("Главная", "Index", "Home")</li>
-                                    @foreach (var item in ViewBag.Categories)
-                                    {
-                                        <li><a href="/home/category/@item.Id">@item.CategoryName</a></li>
-                                    }
-                                    <li>@Html.ActionLink("О нас", "About", "Home")</li>
-                                    <li>@Html.ActionLink("Связь", "Contact", "Home")</li>
+                                <li>@Html.ActionLink("Гарантия", "Guarantee", "Home")</li>
+                                <li>@Html.ActionLink("О нас", "About", "Home")</li>
+                                <li>@Html.ActionLink("Связь", "Contact", "Home")</li>
 
 
-                                    <li>  <a href="/home/card">Корзина <u>@ViewBag.CardCount</u> шт.</a></li>
+                                <li>  <a href="/home/card" style="color:white;">Корзина <u>@ViewBag.CardCount</u> шт.</a></li>
 
-                                    @if (this.User.IsInRole("Administrator"))
-                                    {
-                                        <li>@Html.ActionLink("Добавит продукт", "CreateProduct", "Home")</li>
-                                        <li>@Html.ActionLink("Добавит Категорию", "CreateCategory", "Home")</li>
-                                            <li>@Html.ActionLink("Заказы", "Order", "Admin")</li>
-                                            <li>@Html.ActionLink("Дизайнер", "Sales", "Home")</li>
+                                @if (this.User.IsInRole("Administrator"))
+                                {
+                                    <li>@Html.ActionLink("Добавит продукт", "CreateProduct", "Home")</li>
+                                    <li>@Html.ActionLink("Добавит Категорию", "CreateParentCategory", "Home")</li>
+                                    <li>@Html.ActionLink("Добавит Подкатегорию", "CreateCategory", "Home")</li>
+                                    <li>@Html.ActionLink("Заказы", "Order", "Admin")</li>
+                                    <li>@Html.ActionLink("Дизайнер", "Sales", "Home")</li>
 
-                                            @Html.Partial("_LoginPartial")
-                                    }
+                                    @Html.Partial("_LoginPartial")
+                                }
 
-                                </ul>
+                            </ul>
 
-                            </div><!--/.nav-collapse -->
-                        </div>
+                        </div><!--/.nav-collapse -->
                     </div>
                 </div>
-                <div class="col-sm-9" style="padding:0 !important;">
-                    <div class="container body-content">
-                        @RenderBody()
-                        <hr style="border-top:1px solid #000000 !important;" />
-                        <footer style="margin-bottom:50px; font-size:10px;">
-
-                            <p>
-                                &copy; @DateTime.Now.Year - re:store-family Powered by <a href="https://www.facebook.com/novirarm">Novir+</a>
-                                <br />
-                                Электронная почта: internetshop.restore-family@mail.ru
-                                <br />
-                                Тел.: <phone>8 (800) 700-19-44</phone> (круглосуточно, пн-вс)
-                            </p>
-                        </footer>
-                    </div>
-                    <button onclick="topFunction()" id="myBtn" title="Go to top">^</button>
-
-
-                </div>
-                @if (!Request.Browser.IsMobileDevice)
-                {
-                    <div class="toolbar">
-                        <div class="toolbar-right">
-                            @if (Request.Cookies["Cart"] != null)
-                            {
-                                HttpCookie cookieOld = Request.Cookies["Cart"];
-
-                                var value = cookieOld.Value;
-                                var idList = Newtonsoft.Json.JsonConvert.DeserializeObject
-                                <List<LaserArt.Models.CardModel>>(value);
-                                ViewBag.CardCount = idList.Count;
-                            }
-                            else
-                            {
-                                ViewBag.CardCount = 0;
-                            }
-
-                            @*  <img class="cardIcon" src="~/images/cardBasketIcon.png" />*@
-                            <a href="/home/card">Корзина <u>@ViewBag.CardCount</u> шт.</a>
-                            <input type="button" class="btn btn-default footer-btn" onclick="orderBtnClick()" value="Оформить заказ" />
-
-                        </div>
-                    </div>
-                }
             </div>
+            <div class="col-sm-9" style="padding:0 !important;">
+                <div class="container body-content">
+                    @RenderBody()
+                    <hr style="border-top:1px solid #000000 !important;" />
+                    <footer style="margin-bottom:50px; font-size:10px;">
 
+                        <p style="font-family:Verdana, Geneva, sans-serif;">
+                            &copy; @DateTime.Now.Year - ReStore:Family Powered by <a href="https://www.facebook.com/novirarm">Novir</a>
+                            <br />
+                            Электронная почта: internetshop.restore-family@mail.ru
+                            <br />
+                            Тел.: <phone>8 (495) 203-03-08</phone>
+                        </p>
+                    </footer>
+                </div>
+                <button onclick="topFunction()" id="myBtn" title="Go to top">^</button>
+
+
+            </div>
+            @if (!Request.Browser.IsMobileDevice)
+            {
+                <div class="toolbar" style="font-family:Spirax;">
+                    <div class="toolbar-left col-md-9">
+                        @if (Request.Cookies["Cart"] != null)
+                        {
+                            HttpCookie cookieOld = Request.Cookies["Cart"];
+
+                            var value = cookieOld.Value;
+                            var idList = Newtonsoft.Json.JsonConvert.DeserializeObject
+                            <List<LaserArt.Models.CardModel>>(value);
+                            ViewBag.CardCount = idList.Count;
+                        }
+                        else
+                        {
+                            ViewBag.CardCount = 0;
+                        }
+
+                        @*  <img class="cardIcon" src="~/images/cardBasketIcon.png" />*@
+                        <a href="/home/card">Корзина <u>@ViewBag.CardCount</u> шт.</a>
+                        @*<input type="button" class="btn btn-default footer-btn" onclick="orderBtnClick()" value="Оформить заказ" />*@
+
+                    </div>
+                    <div class="toolbar-right col-md-3">
+                        @Html.ActionLink("Гарантия", "Guarantee", "Home")
+                        @Html.ActionLink("О нас", "About", "Home")
+                        @Html.ActionLink("Связь", "Contact", "Home")
+                        @Html.ActionLink("Доставка", "Delivery", "Home")
+                    </div>
+                </div>
+            }
         </div>
-    
+        <div align="center" id="orderDetails">
+            <p>Добавлено в корзину</p>
+            <input type="button" class="btn btn-default" value="ОК" onclick="refreshThePage()" />
+        </div>
+    </div>
+    <!-- Yandex.Metrika informer -->
+    @if (this.User.IsInRole("Administrator"))
+    {
+        <a style="position:absolute; top:0; left:0" href="https://metrika.yandex.ru/stat/?id=46789293&amp;from=informer"
+           target="_blank" rel="nofollow">
+            <img src="https://informer.yandex.ru/informer/46789293/3_0_DDDDDDFF_DDDDDDFF_0_pageviews"
+                 style="width:88px; height:31px; border:0;" alt="Яндекс.Метрика" title="Яндекс.Метрика: данные за сегодня (просмотры, визиты и уникальные посетители)" class="ym-advanced-informer" data-cid="46789293" data-lang="ru" />
+        </a>
+        <!-- Rating@Mail.ru logo -->
+        <a style="position:absolute; top:0; left:100px" href="https://top.mail.ru/jump?from=2944316">
+            <img src="//top-fwz1.mail.ru/counter?id=2944316;t=479;l=1"
+                 style="border:0;" height="31" width="88" alt="Рейтинг@Mail.ru" />
+        </a>
+        <!-- //Rating@Mail.ru logo -->
+    }
+    <!-- /Yandex.Metrika informer -->
+    <!-- Yandex.Metrika counter -->
+    <script type="text/javascript">
+        (function (d, w, c) {
+            (w[c] = w[c] || []).push(function () {
+                try {
+                    w.yaCounter46789293 = new Ya.Metrika({
+                        id: 46789293,
+                        clickmap: true,
+                        trackLinks: true,
+                        accurateTrackBounce: true,
+                        trackHash: true
+                    });
+                } catch (e) { }
+            });
+
+            var n = d.getElementsByTagName("script")[0],
+                s = d.createElement("script"),
+                f = function () { n.parentNode.insertBefore(s, n); };
+            s.type = "text/javascript";
+            s.async = true;
+            s.src = "https://mc.yandex.ru/metrika/watch.js";
+
+            if (w.opera == "[object Opera]") {
+                d.addEventListener("DOMContentLoaded", f, false);
+            } else { f(); }
+        })(document, window, "yandex_metrika_callbacks");
+    </script><div><img src="https://mc.yandex.ru/watch/46789293" style="position:absolute; left:-9999px;" alt="" /></div>
+    <!-- /Yandex.Metrika counter -->
+    <!-- Rating@Mail.ru counter -->
+    <script type="text/javascript">
+        var _tmr = window._tmr || (window._tmr = []);
+        _tmr.push({ id: "2944316", type: "pageView", start: (new Date()).getTime() });
+        (function (d, w, id) {
+            if (d.getElementById(id)) return;
+            var ts = d.createElement("script"); ts.type = "text/javascript"; ts.async = true; ts.id = id;
+            ts.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//top-fwz1.mail.ru/js/code.js";
+            var f = function () { var s = d.getElementsByTagName("script")[0]; s.parentNode.insertBefore(ts, s); };
+            if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); }
+        })(document, window, "topmailru-code");
+    </script>
+    <div style="position:absolute; top:0; left:100px;">
+        <img src="//top-fwz1.mail.ru/counter?id=2944316;js=na" style="border:0;position:absolute;left:-9999px;" alt="" />
+    </div>
+
+    <!-- //Rating@Mail.ru counter -->
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
@@ -160,7 +245,34 @@
     <script src="https://cloud.tinymce.com/stable/tinymce.min.js"></script>
     <script>tinymce.init({ selector: '#textarea' });</script>
     <script type="text/javascript">
+        function saveSpecification(productId) {
+            var price = $('#Price').val();
+            var specName = $('#specificationName').val();
 
+            $.ajax({
+                url: "/Home/SaveProductSpecification/",
+                type: "POST",
+                data: {
+                    productId: productId,
+                    price: price,
+                    name: specName
+                },
+                success: function (response) {
+                    //code after success
+                    alert('Добавлено');
+                    window.location.reload();
+                },
+                error: function (er) {
+
+                    alert(er.responseText);
+                }
+
+            });
+        }
+        function refreshThePage() {
+            closeOrderDiv();
+            location.reload();
+        }
         window.onscroll = function () { scrollFunction() };
         function saleDetails() {
             var selected = $('#SaleDropDown').val();
@@ -180,11 +292,23 @@
             document.documentElement.scrollTop = 0; // For IE and Firefox
         }
         $(document).ready(function () {
+
+            $('.item-specification').on('click', function (event) {
+                $(".specification-active").removeClass("specification-active");
+                $target = $(event.target);
+                $target.addClass('specification-active');
+            });
+            $('.item-color').on('click', function (event) {
+              
+                $(".color-active").removeClass("color-active");
+                $target = $(event.target);
+                $target.addClass('color-active');
+            });
             //$('.body-content').css("min-height", function () {
             //    return $('.sidebar-nav').height();
             //});
             $('#searchArea').bind("enterKey", function (e) {
-                window.location = "/home/Search?query=" + $(this).val();
+                window.location = "/home/Search?query=" + $(this).val().replace(/</g, "&lt;").replace(/>/g, "&gt;");;
             });
             $('#searchArea').keyup(function (e) {
                 if (e.keyCode == 13) {
@@ -199,9 +323,9 @@
             });
             $('.orderSetStatus').click(function () {
                 var orderId = $(this).parent().parent().attr('id');
-                var status = $('input[name=orderStatus_' + orderId+']:checked').val();
+                var status = $('input[name=orderStatus_' + orderId + ']:checked').val();
                 alert('Статус изменен');
-                window.location = "/admin/ChangeOrderStatus/?orderId=" +orderId  + "&status=" + status;
+                window.location = "/admin/ChangeOrderStatus/?orderId=" + orderId + "&status=" + status;
             });
             $('.deleteProduct').click(function () {
                 var id = $(this).attr('id');
@@ -223,7 +347,11 @@
 
                 });
             });
+            var isCompleted = 1;
             $('.removeCard').click(function () {
+                if (isCompleted == 0)
+                    return;
+                isCompleted = 0;
                 var id = $(this).attr('id');
                 $.ajax({
                     url: "/Home/RemoveCard/" + id,
@@ -232,16 +360,16 @@
                     contentType: false,
                     success: function (response) {
                         //code after success
-                        console.log('#' + id + 'itemCard');
-                        $('#' + id + 'itemCard').remove();
-
+                        isCompleted = 1;
+                        location.reload();
                     },
                     error: function (er) {
+                        isCompleted = 1;
 
-                        alert(er.responseText);
                     }
 
                 });
+
             });
             $(".fileUpload").click(function () {
                 var parent = $(this).parent();
@@ -268,6 +396,21 @@
                     }
 
                 });
+            });
+            $("#PhoneNumber").keydown(function (e) {
+                // Allow: backspace, delete, tab, escape, enter and .
+                if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||
+                    // Allow: Ctrl+A, Command+A
+                    (e.keyCode === 65 && (e.ctrlKey === true || e.metaKey === true)) ||
+                    // Allow: home, end, left, right, down, up
+                    (e.keyCode >= 35 && e.keyCode <= 40)) {
+                    // let it happen, don't do anything
+                    return;
+                }
+                // Ensure that it is a number and stop the keypress
+                if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+                    e.preventDefault();
+                }
             });
             $(".SalefileUpload").click(function () {
                 var parent = $(this).parent();
@@ -302,26 +445,42 @@
             window.location = "/home/orderDetails/" + $('#listInt').val();
         }
         function orderBtnClick() {
-            window.location = "/home/order";
+            window.location = "/home/orderDetails";
         }
-        function orderBtnClickItem(itemId) {
-            window.location = "/home/order/" + itemId;
-        }
+
         function addToCard(itemId) {
             var quantity = $('#cardQuantity').val();
-            if (quantity == "") {
+            var specificationId = $('.specification-active').prop('id');
+            var colorId = $('.color-active').prop('id');
+            if (quantity == ""||quantity=="0") {
                 $('#cardQuantityRequired').html("Укажите количество товара.");
                 $('#cardQuantity').focus();
                 return;
             }
+            if (specificationId == "") {
+                $('#cardQuantityRequired').html("Выберите версию");
+                $('#cardQuantity').focus();
+                return;
+            }
+            else if (quantity != parseInt(quantity, 10)) {
+                $('#cardQuantityRequired').html("Укажите верное количество товара.");
+                var roundedQuantity = Math.round(quantity);
+                if (roundedQuantity == 0)
+                    roundedQuantity = 1;
+                $('#cardQuantity').val(roundedQuantity);
+
+                $('#cardQuantity').focus();
+                return;
+            }
             $.ajax({
-                url: "/Home/AddToCard?productId=" + itemId + "&quantity=" + quantity,
+                url: "/Home/AddToCard?productId=" + itemId + "&quantity=" + quantity + "&specId=" + specificationId + "&color=" + colorId,
                 type: "GET",
                 processData: false,
                 contentType: false,
                 success: function (response) {
                     //code after success
-                    alert(response)
+                    $("#orderDetails").show();
+
                 },
                 error: function (er) {
 
@@ -330,21 +489,45 @@
 
             });
         }
+        function orderBtnClickItem(itemId,specId) {
+            var quantity = 1;
 
+            $.ajax({
+                url: "/Home/AddToCard?productId=" + itemId + "&quantity=" + quantity + "&specId=" + specId+"&color=default",
+                type: "GET",
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    window.location = "/home/card";
+
+                },
+                error: function (er) {
+
+                    alert(er.responseText);
+                }
+
+            });
+        }
         $(document).ready(function () {
             $(".iconImg").click(function (event) {
 
-                $('#generalImg').attr('src', $(event.target).attr('src'));
+                $('#generalImg').attr('src', $(event.target).parent().find('.imageSrc').val());
             });
         });
-
+        function closeOrderDiv() {
+            $("#orderDetails").hide();
+        }
+        function parentEdit(id)
+        {
+            window.location.href = "/Home/EditParentCategory/" + id;
+        }
     </script>
     @if (Request.Browser.IsMobileDevice)
     {
         <style>
             .iconImg {
-                width: 20% !important;
-                height: auto;
+                width:60px;
+                height: 60px;
                 cursor: pointer;
             }
         </style>

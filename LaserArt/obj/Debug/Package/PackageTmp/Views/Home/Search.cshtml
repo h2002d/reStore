@@ -4,34 +4,7 @@
     ViewBag.Title = "Home Page";
 }
 
-<div class="jumbotron" style="padding:0 !important;">
-    <div class="container">
-        @if (!Request.Browser.IsMobileDevice)
-        {
 
-            <div class="col-md-3">
-                <img src="~/images/Logo.png" class="mainlogo" />
-            </div>
-            <div class="col-md-9">
-                <div class="w3-content w3-section">
-                    @foreach (var item in ViewBag.Sales)
-                {
-                        <a class="mySlides" href="@item.link">
-                            <img class="myslideImage" src="@item.image">
-                        </a>
-                    }
-
-                </div>
-            </div>
-        }
-        else
-        {
-            <div class="col-md-12">
-                <img src="~/images/Logo.png" class="mainlogo" />
-            </div>
-        }
-    </div>
-</div>
 <div class="container jumbotron" style="padding-top:5px !important;">
     <div class="row" align="left">
         @ViewBag.Info
@@ -47,24 +20,26 @@
             @Html.Raw("<div class=\"row\" id=\"" + count + "\">");
         }
 
-        <div class="col-md-4">
+        <div class="col-md-4 item-div">
             @if (this.User.IsInRole("Administrator"))
             {
                 <a href="/home/editproduct/@item.Id">Изменить</a>
             }
-            <div class="row product" id="@item.Id" style="font-size:12px; padding:5px; margin-bottom:20px;">
-                <div class="col-md-8 ">
-                    <img style="width:100%; height:auto;" src="@item.ImageSource" />
-                    <p>#@item.Id @item.ProductTitle</p>
+            <div class="row product" align="center" id="@item.Id" style="font-size:12px; padding:5px; margin-bottom:20px;">
+                <div class="col-md-12">
+                    <img style="width:70%; height:auto;" src="@item.ImageSource" />
+                    <p style="margin-top:10px;">#@item.Id <b style="font-weight:800;">@item.ProductTitle</b></p>
                     <p style="display:inline">
                         Цена: @item.Price руб.
                         @if (@item.PriceDiscounted != 0)
                         {
-                            <del style="display:inline"> @item.PriceDiscounted</del>
+                            <del style="display:inline; color:red;"> @item.PriceDiscounted</del>
                         }
                     </p>
-
                 </div>
+            </div>
+            <div class="row" align="center">
+                <input type="button" value="Купить" class="btn btn-default btn-buy" onclick="orderBtnClickItem(@item.Id)" />
             </div>
         </div>
         if (count % 3 == 0 && count == 0)

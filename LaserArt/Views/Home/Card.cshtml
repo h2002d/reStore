@@ -8,51 +8,80 @@
 
     @foreach (var item in Model)
     {
-        <div class="row orderItem" id="@(item.product.Id+"itemCard")">
-            <div class="row">
-                <div class="col-md-3">
-                    <p>Название</p>
-                </div>
-              
-                <div class="col-md-2">
-                    <p>Количество</p>
-                </div>
-                <div class="col-md-2">
-                    <p>Цена</p>
-                </div>
-                <div class="col-md-2">
-                </div>
-            </div>
-            <hr class="productPagehr" />
-            <div class="row ">
-                <div class="col-md-3">
-                    <p>@item.product.ProductTitle</p>
-                    <img src="@item.product.ImageSource" class="imageHeader" />
-                </div>
-             
-                <div class="col-md-2">
-                    <p>@item.ProductQuantity</p>
-                </div>
-                <div class="col-md-2">
-                    <p>@item.product.Price руб.</p>
-                    @if (@item.product.PriceDiscounted != 0)
+        <table class="table table-striped" style="white-space:nowrap;font-size:12px;">
+            <thead>
+                <tr>
+                    <th>Название</th>
+                    <th>Кол.</th>
+                    <th>Цена</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <p>@item.product.ProductTitle @item.Specification.SpecificationName</p>
+                        <div class="@item.Color" style="width:60px; height:60px;"></div>
+                        <img src="@item.product.ImageSource" class="imageHeader" style="height: auto;" />
+                    </td>
+                    <td>@item.ProductQuantity</td>
+                    <td>
+                        <p>@item.product.Price руб.</p>
+                        @if (@item.product.PriceDiscounted != 0)
                 {
-                        <del> @item.product.PriceDiscounted</del>
-                    }
+                            <del> @item.product.PriceDiscounted</del>
+                        }
+                    </td>
+                    <td><a class="removeCard" id="@item.product.Id"><img src="~/images/delete1600.png" style="width:30px; cursor:pointer;" /></a></td>
+                </tr>
+            </tbody>
+        </table>
+        /*    <div class="row orderItem" id="@(item.product.Id+"itemCard")">
+                <div class="row">
+                    <div class="col-md-3">
+                        <p>Название</p>
+                    </div>
+
+                    <div class="col-md-2">
+                        <p>Количество</p>
+                    </div>
+                    <div class="col-md-2">
+                        <p>Цена</p>
+                    </div>
+                    <div class="col-md-2">
+                    </div>
                 </div>
-                <div class="col-md-2">
-                    <a class="removeCard" id="@item.product.Id">Удалить</a>
+                <hr class="productPagehr" />
+
+                <div class="row ">
+                    <div class="col-md-3">
+                        <p>@item.product.ProductTitle</p>
+                        <img src="@item.product.ImageSource" class="imageHeader" />
+                    </div>
+
+                    <div class="col-md-2">
+                        <p>@item.ProductQuantity</p>
+                    </div>
+                    <div class="col-md-2">
+                        <p>@item.product.Price руб.</p>
+                        @if (@item.product.PriceDiscounted != 0)
+                    {
+                            <del> @item.product.PriceDiscounted</del>
+                        }
+                    </div>
+                    <div class="col-md-2">
+                        <a class="removeCard" id="@item.product.Id"><img src="~/images/delete1600.png" style="width:40%; cursor:pointer;" /></a>
+                    </div>
                 </div>
             </div>
-        </div>
-        <hr />
+            <hr />*/
     }
     @if (Model.Count > 0)
     {
-    <div class="row" align="right">
-        <p>Сумма заказа:@ViewBag.Sum</p>
-        <input type="button" class="btn btn-default" onclick="orderBtnClick()" value="Оформить заказ" />
-    </div>
+        <div class="row" align="right">
+            <p>Сумма заказа:@ViewBag.Sum</p>
+            <input type="button" class="btn btn-default  btn-buy" onclick="orderBtnClick()" value="Оформить заказ" />
+        </div>
     }
     else
     {
@@ -61,29 +90,34 @@
         </div>
     }
     <div class="row">
-        <h2>re:store-family рекомендует:</h2>
+        <h2>ReStore:Family рекомендует:</h2>
         <hr />
-@foreach (var item in ViewBag.Recommended)
-{
-    <div class="col-md-4">
-      
-        <div class="row product" id="@item.Id" style="font-size:12px; padding:5px; margin-bottom:20px;">
-            <div class="col-md-8 ">
-                <img style="width:100%; height:auto;" src="@item.ImageSource" />
-                <p>#@item.Id @item.ProductTitle</p>
-                <p style="display:inline">
-                    Цена: @item.Price руб.
-                    @if (@item.PriceDiscounted != 0)
-                    {
-                        <del style="display:inline"> @item.PriceDiscounted</del>
-                    }
-                </p>
+        @foreach (var item in ViewBag.Recommended)
+        {
+            LaserArt.Models.ProductSpecification spec = new LaserArt.Models.ProductSpecification();
+
+            <div class="col-md-4 item-div" style="margin-bottom:10px;">
+             
+                <div class="row product" align="center" id="@item.Id" style="font-size:12px; padding:5px; margin-bottom:20px;">
+                    <div class="col-md-12">
+                        <img style="width:70%; height:auto;" src="@item.ImageSource" />
+                        <p style="margin-top:10px;">#@item.Id <b style="font-weight:800;">@item.ProductTitle</b></p>
+                        @if (LaserArt.Models.ProductSpecification.GetProductSpecification(Convert.ToInt32(item.Id)).Count() != 0)
+                        {
+                            spec = LaserArt.Models.ProductSpecification.GetProductSpecification(Convert.ToInt32(item.Id)).First();
+
+                            <p style="display:inline">Цена: @spec.Price руб.</p>
+                        }
+                    </div>
+                </div>
+                @if (LaserArt.Models.ProductSpecification.GetProductSpecification(Convert.ToInt32(item.Id)).Count() != 0)
+                {
+                    <div class="row" align="center">
+                        <input type="button" value="Купить" class="btn btn-default btn-buy" onclick="orderBtnClickItem(@item.Id,@spec.id)" />
+                    </div>
+                }
 
             </div>
-        </div>
-    </div>
-}
+        }
     </div>
 </div>
-
-

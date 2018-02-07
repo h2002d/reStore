@@ -24,22 +24,28 @@
         </div>
 
         <div class="form-group">
-           <p>Технические характеристики</p>
+            <p>Технические характеристики</p>
             <div class="col-md-10">
-                @Html.EditorFor(model => model.ProductDescription, new { htmlAttributes = new {@id="textarea", @class = "form-control" } })
+                @Html.EditorFor(model => model.ProductDescription, new { htmlAttributes = new { @id = "textarea", @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.ProductDescription, "", new { @class = "text-danger" })
             </div>
         </div>
+        @if (Model.Id != null)
+        {
+            <div class="form-group">
+                @foreach (var item in ViewBag.ProductSpecification)
+                {
 
-        <div class="form-group">
-            <p>Цена</p>
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Price, "Задайте цену", new { @class = "text-danger" })
+                    <p>@item.SpecificationName <a href="/Admin/DeleteSpecification/@item.id">Удалить</a></p>
+                    <p>@item.Price</p>
+                }
+                <input type="text" placeholder="Название" id="specificationName" />
+                <input type="text" placeholder="Цена" id="Price" />
+                <input type="button" value="+" onclick="saveSpecification('@Model.Id')" />
             </div>
-        </div>
+        }
         <div class="form-group">
-           <p>Прежняя цена:</p>
+            <p>Прежняя цена:</p>
             <div class="col-md-10">
                 @Html.EditorFor(model => model.PriceDiscounted, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.PriceDiscounted, "Задайте прежнюю цену", new { @class = "text-danger" })
@@ -49,9 +55,12 @@
             <div class="col-md-10">
                 <input type="file" class="form-control uploadEditorImage" />
                 <input type="button" value="Загрузить" class="btn btn-default fileUpload" />
-                @Html.TextBoxFor(model => model.ImageSource, new {@class="image", @style = "display:none;" })
+                @Html.TextBoxFor(model => model.ImageSource, new { @class = "image", @style = "display:none;" })
                 @Html.ValidationMessageFor(model => model.ImageSource, "Картинка не загружена", new { @class = "text-danger" })
-
+                @Html.DropDownListFor(model => model.Color, new SelectList(Model.Colors,
+                                           "Key", "Value"),
+                                            "--Выбрать цвет--",
+                                new { @class = "form-control" })
 
             </div>
         </div>
@@ -61,40 +70,89 @@
                 <input type="button" value="Загрузить" class="btn btn-default fileUpload" />
                 @Html.TextBoxFor(model => model.ImageSource1, new { @class = "image", @style = "display:none;" })
                 @Html.ValidationMessageFor(model => model.ImageSource1, "Картинка не загружена", new { @class = "text-danger" })
-
+@Html.DropDownListFor(model => model.Color1, new SelectList(Model.Colors,
+                                           "Key", "Value"),
+                                            "--Выбрать цвет--",
+                                new { @class = "form-control" })
 
             </div>
-        </div><div class="form-group">
-    <div class="col-md-10">
-        <input type="file" class="form-control uploadEditorImage" />
-        <input type="button" value="Загрузить" class="btn btn-default fileUpload" />
-        @Html.TextBoxFor(model => model.ImageSource2, new { @class = "image",@style = "display:none;" })
-        @Html.ValidationMessageFor(model => model.ImageSource2, "Картинка не загружена", new { @class = "text-danger" })
-
-
-    </div>
-</div>
+        </div>
         <div class="form-group">
-    <div class="col-md-10">
-        <input type="file" class="form-control uploadEditorImage" />
-        <input type="button" value="Загрузить" class="btn btn-default fileUpload" />
-        @Html.TextBoxFor(model => model.ImageSource3, new { @class = "image", @style = "display:none;" })
-        @Html.ValidationMessageFor(model => model.ImageSource3, "Картинка не загружена", new { @class = "text-danger" })
+            <div class="col-md-10">
+                <input type="file" class="form-control uploadEditorImage" />
+                <input type="button" value="Загрузить" class="btn btn-default fileUpload" />
+                @Html.TextBoxFor(model => model.ImageSource2, new { @class = "image", @style = "display:none;" })
+                @Html.ValidationMessageFor(model => model.ImageSource2, "Картинка не загружена", new { @class = "text-danger" })
+                @Html.DropDownListFor(model => model.Color2, new SelectList(Model.Colors,
+                                           "Key", "Value"),
+                                            "--Выбрать цвет--",
+                                new { @class = "form-control" })
 
-
-    </div>
-</div>
-       
+            </div>
+        </div>
         <div class="form-group">
-           <p>Категория</p>
-            <div class="col-md-10"> 
+            <div class="col-md-10">
+                <input type="file" class="form-control uploadEditorImage" />
+                <input type="button" value="Загрузить" class="btn btn-default fileUpload" />
+                @Html.TextBoxFor(model => model.ImageSource3, new { @class = "image", @style = "display:none;" })
+                @Html.ValidationMessageFor(model => model.ImageSource3, "Картинка не загружена", new { @class = "text-danger" })
+                @Html.DropDownListFor(model => model.Color3, new SelectList(Model.Colors,
+                                           "Key", "Value"),
+                                            "--Выбрать цвет--",
+                                new { @class = "form-control" })
+
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-10">
+                <input type="file" class="form-control uploadEditorImage" />
+                <input type="button" value="Загрузить" class="btn btn-default fileUpload" />
+                @Html.TextBoxFor(model => model.ImageSource4, new { @class = "image", @style = "display:none;" })
+                @Html.ValidationMessageFor(model => model.ImageSource4, "Картинка не загружена", new { @class = "text-danger" })
+                @Html.DropDownListFor(model => model.Color4, new SelectList(Model.Colors,
+                                           "Key", "Value"),
+                                            "--Выбрать цвет--",
+                                new { @class = "form-control" })
+
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-10">
+                <input type="file" class="form-control uploadEditorImage" />
+                <input type="button" value="Загрузить" class="btn btn-default fileUpload" />
+                @Html.TextBoxFor(model => model.ImageSource5, new { @class = "image", @style = "display:none;" })
+                @Html.ValidationMessageFor(model => model.ImageSource5, "Картинка не загружена", new { @class = "text-danger" })
+                @Html.DropDownListFor(model => model.Color5, new SelectList(Model.Colors,
+                                           "Key", "Value"),
+                                            "--Выбрать цвет--",
+                                new { @class = "form-control" })
+
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-10">
+                <input type="file" class="form-control uploadEditorImage" />
+                <input type="button" value="Загрузить" class="btn btn-default fileUpload" />
+                @Html.TextBoxFor(model => model.ImageSource6, new { @class = "image", @style = "display:none;" })
+                @Html.ValidationMessageFor(model => model.ImageSource6, "Картинка не загружена", new { @class = "text-danger" })
+                @Html.DropDownListFor(model => model.Color6, new SelectList(Model.Colors,
+                                           "Key", "Value"),
+                                            "--Выбрать цвет--",
+                                new { @class = "form-control" })
+
+            </div>
+        </div>
+        <div class="form-group">
+            <p>Категория</p>
+            <div class="col-md-10">
                 @Html.DropDownListFor(m => m.CategoryId,
-                                 new SelectList(ViewBag.Categories,
+                                 new SelectList(ViewBag.Category,
                                            "Id", "CategoryName"),
                                             "--Выбрать категорию--",
-                                new { @class = "form-control"})  </div>
+                                new { @class = "form-control" })
+            </div>
         </div>
-        
+
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Сохранить" class="btn btn-default" />

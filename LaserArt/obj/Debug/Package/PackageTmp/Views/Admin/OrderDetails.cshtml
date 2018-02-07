@@ -24,7 +24,7 @@
             <hr class="productPagehr" />
             <div class="row ">
                 <div class="col-md-3">
-                    <p>@item.product.ProductTitle</p>
+                    <p>@item.product.ProductTitle @item.Specification.SpecificationName</p>
                     <img src="@item.product.ImageSource" class="imageHeader" />
                 </div>
                
@@ -32,11 +32,7 @@
                     <p>@item.ProductQuantity</p>
                 </div>
                 <div class="col-md-2">
-                    <p>@item.product.Price руб.</p>
-                    @if (@item.product.PriceDiscounted != 0)
-                {
-                        <del> @item.product.PriceDiscounted</del>
-                    }
+                    <p>@item.Specification.Price руб.</p>
                 </div>
                
             </div>

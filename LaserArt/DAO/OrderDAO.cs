@@ -87,6 +87,8 @@ namespace LaserArt.DAO
                             cmd.Parameters.AddWithValue("@OrderId", Convert.ToInt32(id));
                             cmd.Parameters.AddWithValue("@ProductId", item.ProductId);
                             cmd.Parameters.AddWithValue("@Quantity", item.ProductQuantity);
+                            cmd.Parameters.AddWithValue("@SpecificationId", item.Specification.id);
+                            cmd.Parameters.AddWithValue("@Color", item.Color);
 
                             cmd.ExecuteNonQuery();
                         }
