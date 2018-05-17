@@ -10,6 +10,7 @@ namespace LaserArt.Models
     {
         public int? Id { get; set; }
         public string ParentCategoryName { get; set; }
+        public string ImageSource { get; set; }
         public List<Category> Childs { get {
                 return ParentCategoryDAO.getChildCategories(this.Id);
 

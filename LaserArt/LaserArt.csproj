@@ -209,10 +209,10 @@
     <Compile Include="DAO\CategoryDAO.cs" />
     <Compile Include="DAO\DAO.cs" />
     <Compile Include="DAO\DesignerDAO.cs" />
+    <Compile Include="DAO\MeasureDAO.cs" />
     <Compile Include="DAO\OrderDAO.cs" />
     <Compile Include="DAO\ParentCategoryDAO.cs" />
     <Compile Include="DAO\ProductDAO.cs" />
-    <Compile Include="DAO\ProductSpecificationDAO.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -222,10 +222,10 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\MailModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Measure.cs" />
     <Compile Include="Models\Order.cs" />
     <Compile Include="Models\ParentCategory.cs" />
     <Compile Include="Models\Product.cs" />
-    <Compile Include="Models\ProductSpecification.cs" />
     <Compile Include="Models\Sales.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -237,21 +237,22 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="images\24129470_1589222761134523_1264495214678145878_n.jpg" />
     <Content Include="images\backgroundBlur.jpg" />
-    <Content Include="images\box.jpg" />
     <Content Include="images\cardBasketIcon.png" />
-    <Content Include="images\Carousel\box.jpg" />
-    <Content Include="images\Carousel\Logo.png" />
-    <Content Include="images\colors.png" />
+    <Content Include="images\card_info.png" />
     <Content Include="images\delete1600.png" />
-    <Content Include="images\favicon.ico" />
+    <Content Include="images\fb.png" />
+    <Content Include="images\inst.png" />
+    <Content Include="images\logo-dora.png" />
+    <Content Include="images\searchicon.png" />
+    <Content Include="images\vk.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\carousel.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -317,9 +318,14 @@
     <Content Include="Views\Home\Guarantee.cshtml" />
     <Content Include="Views\Home\Delivery.cshtml" />
     <Content Include="Views\Home\CreateParentCategory.cshtml" />
+    <Content Include="Views\Home\CardPartial.cshtml" />
+    <Content Include="Views\Home\Discount.cshtml" />
+    <Content Include="Views\Home\SubCategory.cshtml" />
+    <Content Include="Views\Home\OutStock.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="images\Carousel\" />
     <Folder Include="Views\Mail\" />
   </ItemGroup>
   <ItemGroup>

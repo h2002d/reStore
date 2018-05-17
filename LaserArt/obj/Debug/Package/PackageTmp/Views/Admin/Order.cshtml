@@ -29,7 +29,7 @@
                     <td  class="adminOrderRow">@item.Name @item.SurName</td>
                     <td class="adminOrderRow">@item.PhoneNumber</td>
 
-                    <td  class="adminOrderRow">@item.Address</td>
+                    <td  class="adminOrderRow">@item.city.Name ,@item.Address</td>
                     <td  class="adminOrderRow">@item.OrderDate</td>
                     <td>
                         <input type="radio" name="orderStatus_@item.Id" @(item.Status==0?"checked":"") value="0">В процессе

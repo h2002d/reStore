@@ -19,45 +19,49 @@ namespace LaserArt.Controllers
     {
         public HomeController()
         {
+            ViewBag.Categories = Models.ParentCategory.GetCategories(null);
 
-            ViewBag.Categories = LaserArt.Models.ParentCategory.GetCategories(null);
         }
-        public ActionResult Index()
+
+        public ActionResult Index(int? card)
         {
             Dictionary<Category, List<Product>> categoryList = new Dictionary<Category, List<Models.Product>>();
-            List<Models.Product> prod = new List<Models.Product>();
-            var recommendedList = Models.Product.GetProducts(null).Take(18);
-            List<int> randomList = new List<int>();
-            Random rnd = new Random();
-            if (recommendedList.Count() >3)
-            {
-                while (true)
-                {
+            List<Models.Product> prod = Models.Product.GetSpecialProducts(null).Take(5).ToList();
+            //var recommendedList = Models.Product.GetProducts(null).Take(18);
+            //List<int> randomList = new List<int>();
+            //Random rnd = new Random();
+            //if (recommendedList.Count() > 5)
+            //{
+            //    while (true)
+            //    {
 
-                    
-                    int r = rnd.Next(recommendedList.Count());
-                    if (!randomList.Contains(r))
-                        randomList.Add(r);
-                    if (randomList.Count >= 3)
-                        break;
-                }
 
-                foreach (int item in randomList)
-                {
+            //        int r = rnd.Next(recommendedList.Count());
+            //        if (!randomList.Contains(r))
+            //            randomList.Add(r);
+            //        if (randomList.Count >= 5)
+            //            break;
+            //    }
 
-                    prod.Add(recommendedList.ElementAt(item));
-                }
-            }
+            //    foreach (int item in randomList)
+            //    {
+
+            //        prod.Add(recommendedList.ElementAt(item));
+            //    }
+            //}
+            ViewBag.ShowCard = card;
             ViewBag.Recommended = prod;
             Category recom = new Models.Category();
-            recom.CategoryName = "Re:Store-Family рекомендует:";
+            recom.CategoryName = "Հատուկ առաջարկներ";
             categoryList.Add(recom, prod);
             var categories = Models.Category.GetCategories(null);
             foreach (var category in categories)
             {
-                var productsList = Models.Product.GetProductsByCategoryId(Convert.ToInt32(category.Id)).Take(6).ToList();
+                var productsList = Models.Product.GetProductsByCategoryId(Convert.ToInt32(category.Id)).Take(5).ToList();
                 categoryList.Add(category, productsList);
             }
+            ViewBag.Categories = Models.ParentCategory.GetCategories(null);
+
             ViewBag.Sales = Models.Sales.GetSalesById(null);
             return View(categoryList);
         }
@@ -71,6 +75,11 @@ namespace LaserArt.Controllers
         {
             return View();
         }
+        public ActionResult SubCategory(int id)
+        {
+            var category = Models.ParentCategory.GetCategories(id).First();
+            return View(category); 
+        }
         public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";
@@ -81,6 +90,7 @@ namespace LaserArt.Controllers
         [Authorize(Roles = "Administrator")]
         public ActionResult CreateProduct()
         {
+            ViewBag.Measure = LaserArt.Models.Measure.GetMeasure(null);
             ViewBag.Category = LaserArt.Models.Category.GetCategories(null);
             Models.Product prod = new Models.Product();
             return View(prod);
@@ -91,23 +101,12 @@ namespace LaserArt.Controllers
         public ActionResult EditProduct(int id)
         {
             Product product = new Models.Product();
-                product=Models.Product.GetProducts(id).FirstOrDefault();
-            ViewBag.ProductSpecification = LaserArt.Models.ProductSpecification.GetProductSpecification(id);
-
-            ViewBag.Category= LaserArt.Models.Category.GetCategories(null);
+            product = Models.Product.GetProducts(id).FirstOrDefault();
+            ViewBag.Measure = LaserArt.Models.Measure.GetMeasure(null);
+            ViewBag.Category = LaserArt.Models.Category.GetCategories(null);
             return View("CreateProduct", product);
         }
-        [HttpPost]
-        [Authorize(Roles = "Administrator")]
-        public JsonResult SaveProductSpecification(string productId, string price, string name)
-        {
-            ProductSpecification spec = new ProductSpecification();
-            spec.ProductId = Convert.ToInt32(productId);
-            spec.Price = Convert.ToDecimal(price);
-            spec.SpecificationName = name;
-            spec.Save();
-            return null;
-        }
+
         [HttpPost]
         [Authorize(Roles = "Administrator")]
         [ValidateInput(false)]
@@ -122,7 +121,7 @@ namespace LaserArt.Controllers
                 newProduct.ImageSource5 = newProduct.ImageSource5 == null ? "" : newProduct.ImageSource5;
                 newProduct.ImageSource6 = newProduct.ImageSource6 == null ? "" : newProduct.ImageSource6;
                 newProduct.SaveProduct();
-                return RedirectToAction("EditProduct",newProduct.Id);
+                return RedirectToAction("Index");
             }
             catch (Exception ex)
             {
@@ -218,7 +217,10 @@ namespace LaserArt.Controllers
         public ActionResult Product(int id)
         {
             var product = LaserArt.Models.Product.GetProducts(id).FirstOrDefault();
-            ViewBag.ProductSpecification = LaserArt.Models.ProductSpecification.GetProductSpecification(id);
+            var category = LaserArt.Models.Category.GetCategories(product.CategoryId).FirstOrDefault();
+            var parent = LaserArt.Models.ParentCategory.GetCategories(category.ParentId).First();
+            ViewBag.Parent = parent;
+            ViewBag.CategoryName = category.CategoryName;
             return View(product);
         }
 
@@ -226,6 +228,9 @@ namespace LaserArt.Controllers
         {
             var category = LaserArt.Models.Category.GetCategories(id).FirstOrDefault();
             ViewBag.CategoryName = category.CategoryName;
+            ViewBag.IsCategory = 1;
+            var parent = Models.ParentCategory.GetCategories(category.ParentId).First();
+            ViewBag.Parent = parent;
             ViewBag.CategoryId = id;
             var products = LaserArt.Models.Product.GetProductsByCategoryId(id);
             return View(products);
@@ -291,24 +296,27 @@ namespace LaserArt.Controllers
             // after successfully uploading redirect the user
             return Json("Картинка загружена", JsonRequestBehavior.AllowGet);
         }
-        public JsonResult AddToCard(int productId, int quantity, int specId,
-           string color )
+
+        public JsonResult AddToCard(int productId, decimal quantity)
         {
             if (Request.Cookies["Cart"] != null)
             {
                 HttpCookie cookieOld = Request.Cookies["Cart"];
                 var value = cookieOld.Value;
                 var model = JsonConvert.DeserializeObject<List<CardModel>>(value);
-                ////int index = model.FindIndex(item => item.ProductId == productId);
-                ////if (index < 0)
-                ////{
+                int index = model.FindIndex(item => item.ProductId == productId);
+
+                decimal quantityNew=0;
+                if(index >=0)
+                {
+                    quantityNew=model[index].ProductQuantity;
+                    model.RemoveAt(index);
+                }
                 CardModel newItem = new CardModel();
                 newItem.ProductId = productId;
-                newItem.Specification = ProductSpecification.GetProductSpecificationById(specId).First();
-                newItem.ProductQuantity = quantity;
-                newItem.Color = color;
+                newItem.ProductQuantity = quantity+quantityNew;
                 model.Add(newItem);
-                //}
+
                 cookieOld.Value = JsonConvert.SerializeObject(model);
                 Response.Cookies.Add(cookieOld);
             }
@@ -318,9 +326,7 @@ namespace LaserArt.Controllers
                 CardModel model = new CardModel();
                 model.ProductId = productId;
                 model.ProductQuantity = quantity;
-                model.Color = color;
 
-                model.Specification = ProductSpecification.GetProductSpecificationById(specId).First();
                 idList.Add(model);
                 var json = JsonConvert.SerializeObject(idList);
                 HttpCookie cookie = new HttpCookie("Cart");
@@ -330,6 +336,12 @@ namespace LaserArt.Controllers
 
             return Json("Добавлено в карзину.", JsonRequestBehavior.AllowGet);
 
+        }
+
+        public ActionResult OutStock()
+        {
+            var products = LaserArt.Models.Product.GetOutProducts(null);
+            return View(products);
         }
 
         public ActionResult Card()
@@ -348,7 +360,6 @@ namespace LaserArt.Controllers
                 foreach (var item in idList)
                 {
                     item.product = LaserArt.Models.Product.GetProducts(Convert.ToInt32(item.ProductId)).FirstOrDefault();
-                    item.product.Price = item.Specification.Price;
                     productList.Add(item);
                     sum += item.ProductQuantity * item.product.Price;
                 }
@@ -380,11 +391,15 @@ namespace LaserArt.Controllers
         [HttpPost]
         public ActionResult RemoveCard(int id)
         {
+            decimal sum = 0;
             if (Request.Cookies["Cart"] != null)
             {
                 HttpCookie cookieOld = Request.Cookies["Cart"];
                 var value = cookieOld.Value;
                 var model = JsonConvert.DeserializeObject<List<CardModel>>(value);
+                var product = model.Where(m => m.ProductId == id).First();
+                Product prod = Models.Product.GetProducts(product.ProductId).First();
+                sum = prod.Price * product.ProductQuantity;
 
                 model.Remove(model.Where(m => m.ProductId == id).First());
 
@@ -392,7 +407,7 @@ namespace LaserArt.Controllers
                 Response.Cookies.Add(cookieOld);
             }
 
-            return RedirectToAction("Card");
+            return Json(sum, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
@@ -420,7 +435,6 @@ namespace LaserArt.Controllers
                     {
 
                         item.product = LaserArt.Models.Product.GetProducts(Convert.ToInt32(item.ProductId)).FirstOrDefault();
-                        item.product.Price = item.Specification.Price;
                         productList.Add(item);
                         sum += item.ProductQuantity * item.product.Price;
 
@@ -433,7 +447,6 @@ namespace LaserArt.Controllers
                 ViewBag.ListInt = id;
                 CardModel model = new CardModel();
                 model.product = LaserArt.Models.Product.GetProducts(id).FirstOrDefault();
-                model.product.Price = model.Specification.Price;
                 model.ProductId = Convert.ToInt32(id);
                 model.ProductQuantity = 1;
                 productList.Add(model);
@@ -453,28 +466,28 @@ namespace LaserArt.Controllers
         }
 
         [HttpGet]
-        public ActionResult OrderDetails(int? id)
+        public ActionResult OrderDetails(int id)
         {
             Order newOrder = new Order();
-            if (id == null)
+            ViewBag.Cities = DeliveryCity.GetDelivery(null);
+
+
+            if (Request.Cookies["Cart"] != null)
             {
+                HttpCookie cookieOld = Request.Cookies["Cart"];
 
-                if (Request.Cookies["Cart"] != null)
+                var value = cookieOld.Value;
+                var idList = JsonConvert.DeserializeObject<List<CardModel>>(value);
+                foreach (var item in idList)
                 {
-                    HttpCookie cookieOld = Request.Cookies["Cart"];
-
-                    var value = cookieOld.Value;
-                    var idList = JsonConvert.DeserializeObject<List<CardModel>>(value);
-                    foreach (var item in idList)
-                    {
-                        newOrder.Products.Add(item);
-                    }
+                    newOrder.Products.Add(item);
                 }
             }
             else
             {
-
+                return RedirectToAction("Index");
             }
+            newOrder.CityId = id;
             return View(newOrder);
         }
 
@@ -493,8 +506,11 @@ namespace LaserArt.Controllers
                 foreach (var item in idList)
                 {
                     newOrder.Products.Add(item);
+                    var product = Models.Product.GetProducts(item.ProductId).First();
+                    newOrder.Amount += product.Price * item.ProductQuantity;
                 }
             }
+            newOrder.Amount += newOrder.city.Money;
             newOrder.Id = newOrder.saveOrder();
             SendMail(newOrder);
             if (Request.Cookies["Cart"] != null)
@@ -503,7 +519,15 @@ namespace LaserArt.Controllers
                 c.Expires = DateTime.Now.AddDays(-1);
                 Response.Cookies.Add(c);
             }
-            return RedirectToAction("OrderAproval", new { id = newOrder.Id });
+            if (newOrder.isCash)
+            {
+                return RedirectToAction("OrderAproval", new { id = newOrder.Id });
+            }
+            else
+            {
+                //onlinePayment
+                return RedirectToAction("OrderAproval", new { id = newOrder.Id });
+            }
         }
         public ActionResult OrderAproval(int id)
         {
@@ -522,20 +546,19 @@ namespace LaserArt.Controllers
                 MailMessage mail = new MailMessage();
                 mail.To.Add(EmailTo);
                 mail.From = new MailAddress(EmailFrom);
-                mail.Subject = "НОВЫЙ ЗАКАЗ!";
+                mail.Subject = "ՆՈՐ ՊԱՏՎԵՐ!";
                 StringBuilder Body = new StringBuilder();
-                Body.Append("<b>У вас есть новый заказ</b><br/>")
-                    .Append(string.Format("Номер заказа:{0} <br/>", newOrder.Id))
-                    .Append(string.Format("Адрес:{0} <br/>", newOrder.Address))
-                    .Append(string.Format("Тел.:{0} <br/>", newOrder.PhoneNumber))
+                Body.Append("<b>Դուք ունեք նոր պատվեր</b><br/>")
+                    .Append(string.Format("Պատվերի համար:{0} <br/>", newOrder.Id))
+                    .Append(string.Format("Հասցե:{0} <br/>", newOrder.Address))
+                    .Append(string.Format("Հեռ.:{0} <br/>", newOrder.PhoneNumber))
 
-                    .Append(string.Format("Имя зказчика:{0} {1} <br/>", newOrder.Name, newOrder.SurName));
+                    .Append(string.Format("Պատվիրատույի անունը:{0} {1} <br/>", newOrder.Name, newOrder.SurName));
                 foreach (var item in newOrder.Products)
                 {
                     var product = Models.Product.GetProducts(item.ProductId).FirstOrDefault();
-                    Body.Append(string.Format("Название товара:N{0} {1} <br/>", item.ProductId, product.ProductTitle));
+                    Body.Append(string.Format("Ապրանք:N{0} {1}  քան:{2}<br/>", item.ProductId, product.ProductTitle,item.ProductQuantity));
                 }
-                Body.Append(string.Format("Дата заказа: {0}", DateTime.Now));
                 mail.Body = Body.ToString();
                 mail.IsBodyHtml = true;
                 SmtpClient smtp = new SmtpClient();
@@ -558,18 +581,20 @@ namespace LaserArt.Controllers
             ViewBag.Info = "Результаты поиска:";
             return View(listProducts);
         }
+        [Authorize(Roles = "Administrator")]
         public ActionResult Sales()
         {
             var sales = Models.Sales.GetSalesById(null);
             return View(sales);
         }
-
+        [Authorize(Roles = "Administrator")]
         public ActionResult SalesDetails(int? id)
         {
             var sale = Models.Sales.GetSalesById(id).FirstOrDefault();
             return View(sale);
         }
         [HttpPost]
+        [Authorize(Roles = "Administrator")]
         public ActionResult SalesDetails(Sales sale)
         {
             try
@@ -595,6 +620,106 @@ namespace LaserArt.Controllers
         public ActionResult Delivery()
         {
             return View();
+        }
+        public ActionResult CardPartial(int? category)
+        {
+            try
+            {
+                var rd = ControllerContext.ParentActionViewContext.RouteData;
+                var currentAction = rd.GetRequiredString("action");
+                ViewBag.Route = currentAction.ToUpper();
+            }
+
+            catch 
+            {
+                if(category==1)
+                {
+                    ViewBag.Route = "CATEGORY";
+                }
+            }
+            List<CardModel> productList = new List<CardModel>();
+            ViewBag.Cities = DeliveryCity.GetDelivery(null);
+            decimal sum = 0;
+            if (Request.Cookies["Cart"] != null)
+            {
+                HttpCookie cookieOld = Request.Cookies["Cart"];
+
+                var value = cookieOld.Value;
+
+                var idList = JsonConvert.DeserializeObject<List<CardModel>>(value);
+
+
+                foreach (var item in idList)
+                {
+                    item.product = LaserArt.Models.Product.GetProducts(Convert.ToInt32(item.ProductId)).FirstOrDefault();
+                    productList.Add(item);
+                    sum += item.ProductQuantity * item.product.Price;
+                }
+
+            }
+            ViewBag.Sum = sum;
+            return PartialView(productList);
+        }
+        [HttpPost]
+        public ActionResult OrderCategory(List<CardModel> card)
+        {
+            return View();
+        }
+        public string GetCount()
+        {
+            if (Request.Cookies["Cart"] != null)
+            {
+                HttpCookie cookieOld = Request.Cookies["Cart"];
+
+                var value = cookieOld.Value;
+
+                var idList = JsonConvert.DeserializeObject<List<CardModel>>(value);
+                return idList.Count.ToString();
+
+            }
+            else
+            {
+                return "0";
+            }
+        }
+        [HttpPost]
+        public JsonResult SubmitReview(string email, string name, string body)
+        {
+            try
+            {
+                string EmailTo = WebConfigurationManager.AppSettings["EmailTo"];
+                string EmailFrom = WebConfigurationManager.AppSettings["EmailFrom"];
+                string EmailFromPassword = WebConfigurationManager.AppSettings["EmailFromPassword"];
+
+                MailMessage mail = new MailMessage();
+                mail.To.Add(EmailTo);
+                mail.From = new MailAddress(EmailFrom);
+                mail.Subject = string.Format("Նոր հարցում {0} էլ. փոստ {1}", name, email);
+
+                mail.Body = body;
+                mail.IsBodyHtml = true;
+                SmtpClient smtp = new SmtpClient();
+                smtp.Host = "smtp.gmail.com";
+                smtp.Port = 587;
+                smtp.UseDefaultCredentials = false;
+                smtp.Credentials = new System.Net.NetworkCredential(EmailFrom, EmailFromPassword); // Enter seders User name and password   
+                smtp.EnableSsl = true;
+                smtp.Send(mail);
+                ViewBag.MessageContact = "";
+                return Json("Հարցումը հաջողությամբ մշակված է", JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json("Հարցումը մշակված չէ", JsonRequestBehavior.AllowGet);
+            }
+
+        }
+
+        public ActionResult Discount()
+        {
+            ViewBag.IsCategory = 1;
+            List<Models.Product> model = Models.Product.GetDiscountedProducts();
+            return View(model);
         }
     }
 }

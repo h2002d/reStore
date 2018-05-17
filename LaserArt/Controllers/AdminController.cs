@@ -42,11 +42,6 @@ namespace LaserArt.Controllers
            return RedirectToAction("Order");
         }
 
-        [Authorize(Roles = "Administrator")]
-        public ActionResult DeleteSpecification(int id)
-        {
-            Models.ProductSpecification.Delete(id);
-            return Redirect(Request.UrlReferrer.ToString());
-        }
+      
     }
 }

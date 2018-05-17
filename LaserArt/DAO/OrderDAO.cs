@@ -41,6 +41,8 @@ namespace LaserArt.DAO
                             newOrder.SurName = rdr["SurName"].ToString();
                             newOrder.OrderDate = Convert.ToDateTime(rdr["OrderDate"]);
                             newOrder.Status = Convert.ToInt32(rdr["Status"]);
+                            newOrder.isCash = Convert.ToBoolean(rdr["isCash"]);
+                            newOrder.CityId = Convert.ToInt32(rdr["CityId"]);
                             newProductList.Add(newOrder);
                         }
 
@@ -57,6 +59,42 @@ namespace LaserArt.DAO
             }
 
         }
+
+        internal static List<DeliveryCity> getDeliveryCity(int? id)
+        {
+            using (SqlConnection sqlConnection = new SqlConnection(connectionString))
+            {
+                List<DeliveryCity> cityList = new List<DeliveryCity>();
+
+                using (SqlCommand command = new SqlCommand("sp_GetDeliveryCity", sqlConnection))
+                {
+                    try
+                    {
+                        sqlConnection.Open();
+                        command.CommandType = CommandType.StoredProcedure;
+                        if (id == null)
+                            command.Parameters.AddWithValue("@Id", DBNull.Value);
+                        else
+                            command.Parameters.AddWithValue("@Id", id);
+                        SqlDataReader rdr = command.ExecuteReader();
+                        while (rdr.Read())
+                        {
+                            DeliveryCity city = new DeliveryCity();
+                            city.Id = Convert.ToInt32(rdr["Id"]);
+                            city.Name = rdr["Name"].ToString();
+                            city.Money=Convert.ToDecimal(rdr["Money"]);
+                            cityList.Add(city);
+                        }
+                        return cityList;
+                    }
+                    catch (Exception ex)
+                    {
+                        throw ex;
+                    }
+                }
+            }
+        }
+
         public static int saveOrder(Order newProduct)
         {
             using (SqlConnection sqlConnection = new SqlConnection(connectionString))
@@ -74,6 +112,9 @@ namespace LaserArt.DAO
                         command.Parameters.AddWithValue("@Address", newProduct.Address);
                         command.Parameters.AddWithValue("@Latitude", newProduct.Latitide);
                         command.Parameters.AddWithValue("@Longitude", newProduct.Longitude);
+                        command.Parameters.AddWithValue("@isCash", newProduct.isCash);
+                        command.Parameters.AddWithValue("@CityId", newProduct.CityId);
+
                         //if(newProduct.isCompleted)
                         //    command.Parameters.AddWithValue("@isCompleted", 1);
                         //else
@@ -87,8 +128,7 @@ namespace LaserArt.DAO
                             cmd.Parameters.AddWithValue("@OrderId", Convert.ToInt32(id));
                             cmd.Parameters.AddWithValue("@ProductId", item.ProductId);
                             cmd.Parameters.AddWithValue("@Quantity", item.ProductQuantity);
-                            cmd.Parameters.AddWithValue("@SpecificationId", item.Specification.id);
-                            cmd.Parameters.AddWithValue("@Color", item.Color);
+
 
                             cmd.ExecuteNonQuery();
                         }

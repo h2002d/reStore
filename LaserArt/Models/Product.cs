@@ -12,6 +12,11 @@ namespace LaserArt.Models
     {
         #region Properties
         public int? Id { get; set; }
+        public int MeasureId { get; set; }
+
+        public bool IsSpecial { get; set; }
+        public bool IsOut { get; set; }
+        public Measure Measure { get { try { return Measure.GetMeasure(MeasureId).First(); } catch { return null; } } }
         [Required]
         public string ProductTitle { get; set; }
         [Required]
@@ -36,52 +41,23 @@ namespace LaserArt.Models
         public string ImageSource5 { get; set; } = "";
         [DefaultValue("")]
         public string ImageSource6 { get; set; } = "";
-        [Required]
-        public string Color { get; set; }
-        [DefaultValue("")]
-        public string Color1 { get; set; } = "";
-        [DefaultValue("")]
-        public string Color2 { get; set; } = "";
-        [DefaultValue("")]
-        public string Color3 { get; set; } = "";
-        [DefaultValue("")]
-        public string Color4 { get; set; } = "";
-        [DefaultValue("")]
-        public string Color5 { get; set; } = "";
-        [DefaultValue("")]
-        public string Color6 { get; set; } = "";
+
         [Required]
         public int CategoryId { get; set; }
-
-        public ProductSpecification Specification { get; set; }
 
         public Dictionary<string,string> Colors { get; set; }
 #endregion
 
         public Product():base()
         {
-            Colors = new Dictionary<string, string>();
-            Colors.Add("c-black-onyx-full", "Чёрный оникс");
-            Colors.Add("c-grey-full", "Тёмно серый");
-            Colors.Add("c-black-full", "Чёрный");
-            Colors.Add("c-gold-full", "Золотой");
-            Colors.Add("c-rose-full", "Розовое Золото");
-            Colors.Add("c-white-full", "Белый");
-            Colors.Add("c-red-full", "Красный");
 
-            Specification = new ProductSpecification();
             this.ImageSource1 = "";
             this.ImageSource2 = "";
             this.ImageSource3 = "";
             this.ImageSource4 = "";
             this.ImageSource5 = "";
             this.ImageSource6 = "";
-            this.Color1 = "";
-            this.Color2 = "";
-            this.Color3 = "";
-            this.Color4 = "";
-            this.Color5 = "";
-            this.Color6 = "";
+         
         }
 
         public Product SaveProduct()
@@ -93,6 +69,17 @@ namespace LaserArt.Models
         {
             return ProductDAO.getProducts(id);
         }
+
+        public static List<Product> GetOutProducts(int? id)
+        {
+            return ProductDAO.getOutProducts(id);
+        }
+
+        public static List<Product> GetSpecialProducts(int? id)
+        {
+            return ProductDAO.getSpecialProducts(id);
+        }
+
         public static void DeleteProduct(int id)
         {
              ProductDAO.deleteProduct(id);
@@ -108,6 +95,11 @@ namespace LaserArt.Models
         public static List<CardModel> GetProductsByOrderId(int orderId)
         {
             return ProductDAO.getProductsByOrderId(orderId);
+        }
+
+        internal static List<Product> GetDiscountedProducts()
+        {
+            return ProductDAO.getDiscountedProducts();
         }
     }
 }

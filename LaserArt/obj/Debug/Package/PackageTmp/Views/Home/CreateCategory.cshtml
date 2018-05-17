@@ -23,10 +23,16 @@
             </div>
         </div>
         <div class="form-group">
+            <input type="file" class="form-control uploadEditorImage" />
+            <input type="button" value="Загрузить" class="btn btn-default SalefileUpload" />
+            @Html.TextBoxFor(model => model.ImageSource, new { @class = "image", @style = "display:none;" })
+            @Html.ValidationMessageFor(model => model.ImageSource, "Картинка не загружена", new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
             <div class="col-md-10">
                 @Html.DropDownListFor(model => model.ParentId, new SelectList(ViewBag.Category,
                                            "Id", "ParentCategoryName"),
-                                            "--Выбрать цвет--",
+                                            "--Ընտրեք կատեգորիան--",
 
                                 new { @class = "form-control" })
             </div>

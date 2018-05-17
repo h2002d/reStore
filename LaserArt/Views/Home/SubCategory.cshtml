@@ -1,0 +1,19 @@
+﻿@model LaserArt.Models.ParentCategory
+@{
+    ViewBag.Title = @Model.ParentCategoryName;
+}
+
+<h2>@Model.ParentCategoryName</h2>
+<div class="container">
+    <div class="row">
+        @foreach (var item in Model.Childs)
+        {
+            <a href="/home/category/@item.Id">
+                <div class="col-sm-3 sub-category-item" align="center">
+                    <img style="width:100%; height:auto;" src="@item.ImageSource" />
+                    <p style="height:50px;">@item.CategoryName</p>
+                </div>
+            </a>
+        }
+    </div>
+</div>

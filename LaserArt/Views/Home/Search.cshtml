@@ -13,46 +13,48 @@
     @{
         var count = 0;
     }
-    @foreach (var item in Model)
+    @foreach (var product in Model)
     {
-        if (count % 3 == 0 || count == 0)
-        {
-            @Html.Raw("<div class=\"row\" id=\"" + count + "\">");
-        }
-        LaserArt.Models.ProductSpecification spec = new LaserArt.Models.ProductSpecification();
 
-        <div class="col-md-4 item-div" style="margin-bottom:10px;">
+        <div class="col-sm-3 item-div" style="width:20% !important">
             @if (this.User.IsInRole("Administrator"))
             {
-                <a href="/home/editproduct/@item.Id">Изменить</a>
+                <a href="/home/editproduct/@product.Id">փոփոխել</a>
             }
-            <div class="row product" align="center" id="@item.Id" style="font-size:12px; padding:5px; margin-bottom:20px;">
-                <div class="col-md-12">
-                    <img style="width:70%; height:auto;" src="@item.ImageSource" />
-                    <p style="margin-top:10px;">#@item.Id <b style="font-weight:800;">@item.ProductTitle</b></p>
-                    @if (LaserArt.Models.ProductSpecification.GetProductSpecification(Convert.ToInt32(item.Id)).Count() != 0)
-                    {
-                        spec = LaserArt.Models.ProductSpecification.GetProductSpecification(Convert.ToInt32(item.Id)).First();
-
-                        <p style="display:inline">Цена: @spec.Price руб.</p>
-                    }
+            <div class="row " align="center" id="@product.Id" style="font-size:12px; padding:5px;">
+                <div class="col-md-12 ">
+                    <a href="/home/product/@product.Id">
+                        <img style="width:70%; height:auto;" src="@product.ImageSource" />
+                    </a>
                 </div>
             </div>
-            @if (LaserArt.Models.ProductSpecification.GetProductSpecification(Convert.ToInt32(item.Id)).Count() != 0)
-                {
-                <div class="row" align="center">
-                    <input type="button" value="Купить" class="btn btn-default btn-buy" onclick="orderBtnClickItem(@item.Id,@spec.id)" />
+            <div class="properties-div" align="center">
+                <a href="/home/product/@product.Id">
+
+                    <p style="margin-top:10px;height:50px; font-size:12px;" class="text">#@product.Id <b style="font-weight:800;">@product.ProductTitle</b></p>
+                </a>
+                <p style="font-size:12px; height:30px;">
+                    Գինը <del>@(product.PriceDiscounted == 0 ? "" : product.PriceDiscounted.ToString() + "դր.") </del>
+                    <br />
+                    <b> դր. @product.Price</b><span>@(product.Measure.Id == 1 ? "" : "/"+product.Measure.Name)</span>
+                </p>
+
+                <div class="row item-sub" align="center">
+                    <div class=" col-sm-12 input-group input-number-group">
+
+                        <div class=" col-sm-4 input-group-button">
+                            <span class="input-number-decrement">-</span>
+                        </div>
+                        <input type="number" name="@Convert.ToInt32(product.Measure.IsDecimal)" class="col-sm-4 cardQuantity form-control" id="cardQuantity" min="1" step="1" value="@(product.Measure.IsDecimal?"0.1":"1")" />
+                        <div style="color:red; font-size:12px;" class="cardQuantityRequired" id="cardQuantityRequired"></div>
+
+                        <div class="input-group-button col-sm-4">
+                            <span class="input-number-increment">+</span>
+                        </div>
+                    </div>
                 </div>
-            }
-
-        </div>
-        if (count % 3 == 0 && count == 0)
-        {
-            Html.Raw("</div>");
-
-        }
-        count++;
-
-    }
+                <input type="button" value="Ավելացնել" style="@(Request.Browser.IsMobileDevice?"font-size:10px;text-align:center;":"")" class="btn btn-default  btn-buy add-basket" name="@Convert.ToInt32(product.Measure.IsDecimal)" id="@product.Id" />
+            </div>
+        </div>  }
 </div>
 <script src="~/Scripts/carousel.js"></script>

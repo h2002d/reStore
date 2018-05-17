@@ -6,8 +6,8 @@ by editing this MSBuild file. In order to learn more about this please visit htt
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <TimeStampOfAssociatedLegacyPublishXmlFile />
-    <EncryptedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAxJTa3luvM0y95j9oiX/HtwAAAAACAAAAAAAQZgAAAAEAACAAAAAm7CBMkchGza0oOI5b76PJ8bdZ+MeBrlsCWG7jcisNrAAAAAAOgAAAAAIAACAAAAAGiiYSgyY1+4ns6+gpL1d4MJYF5qBhdiv5ng16sSCStCAAAADBzoqPrtIwLnV0L7Ig4O7YxmG7P3E32MUsxX4rl3bEukAAAAA3PXZDQM2Yw/8BMsPx18PuPSsBlHx5hcubXh43bVukUCIYySut/UOBIK4Ojp2ycGZRkFZslu8Fca7jYnG/GIwY</EncryptedPassword>
-    <_PublishTargetUrl>ftp://FTP.SITE4NOW.NET/site1</_PublishTargetUrl>
+    <EncryptedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAHMsLg0t4Mk2j+Xp8Enbr0QAAAAACAAAAAAAQZgAAAAEAACAAAAAMusLiNHZhb6abWmM3wgl7Xhpn9eAd6KSG+/26m3Rw3QAAAAAOgAAAAAIAACAAAADxDxORf7y4gsHRq38QcETm6Y2c+BJefEsjtMZswEJgRSAAAABOAjPYfLvWoKlQWTIEe2Y39jYUuhN9HGO6Z6I8PyXTMUAAAADhFFMjBAIA++y1QHH/wLCfAyadVpb1vBr/dgx4h7k1k/X2OA3v6BDfmZBOyQ45Npmoo41w8/F2YNmUyN1AZfBt</EncryptedPassword>
+    <_PublishTargetUrl>ftp://ftp.site4now.net/site1</_PublishTargetUrl>
   </PropertyGroup>
   <ItemGroup>
     <File Include="ApplicationInsights.config">
@@ -32,10 +32,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/13/2017 15:59:58</publishTime>
     </File>
     <File Include="bin/LaserArt.dll">
-      <publishTime>02/03/2018 14:04:51</publishTime>
+      <publishTime>05/13/2018 09:19:27</publishTime>
     </File>
     <File Include="bin/LaserArt.pdb">
-      <publishTime>02/03/2018 14:04:51</publishTime>
+      <publishTime>05/13/2018 09:19:27</publishTime>
     </File>
     <File Include="bin/Microsoft.AI.Agent.Intercept.dll">
       <publishTime>12/01/2016 03:07:42</publishTime>
@@ -227,16 +227,16 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/16/2017 16:10:06</publishTime>
     </File>
     <File Include="Content/bootstrap.css">
-      <publishTime>08/04/2017 12:39:06</publishTime>
+      <publishTime>04/06/2018 18:55:46</publishTime>
     </File>
     <File Include="Content/bootstrap.min.css">
       <publishTime>08/04/2017 12:39:06</publishTime>
     </File>
     <File Include="Content/Site.css">
-      <publishTime>01/05/2018 10:57:04</publishTime>
+      <publishTime>04/30/2018 14:52:21</publishTime>
     </File>
     <File Include="favicon.ico">
-      <publishTime>09/27/2017 21:53:18</publishTime>
+      <publishTime>04/30/2018 11:31:58</publishTime>
     </File>
     <File Include="fonts/glyphicons-halflings-regular.eot">
       <publishTime>08/04/2017 12:39:06</publishTime>
@@ -253,35 +253,32 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Global.asax">
       <publishTime>08/04/2017 12:38:52</publishTime>
     </File>
-    <File Include="images/24129470_1589222761134523_1264495214678145878_n.jpg">
-      <publishTime>11/28/2017 21:04:08</publishTime>
-    </File>
     <File Include="images/backgroundBlur.jpg">
-      <publishTime>11/28/2017 18:42:14</publishTime>
-    </File>
-    <File Include="images/box.jpg">
-      <publishTime>09/15/2017 13:26:54</publishTime>
+      <publishTime>04/15/2018 09:38:37</publishTime>
     </File>
     <File Include="images/cardBasketIcon.png">
-      <publishTime>09/15/2017 12:40:10</publishTime>
+      <publishTime>04/03/2018 23:17:18</publishTime>
     </File>
-    <File Include="images/Carousel/box.jpg">
-      <publishTime>09/15/2017 13:28:56</publishTime>
-    </File>
-    <File Include="images/Carousel/Logo.png">
-      <publishTime>09/15/2017 13:28:56</publishTime>
-    </File>
-    <File Include="images/colors.png">
-      <publishTime>12/22/2017 09:32:27</publishTime>
+    <File Include="images/card_info.png">
+      <publishTime>05/15/2018 20:22:07</publishTime>
     </File>
     <File Include="images/delete1600.png">
-      <publishTime>10/23/2017 16:22:08</publishTime>
+      <publishTime>04/29/2018 17:11:47</publishTime>
     </File>
-    <File Include="images/favicon.ico">
-      <publishTime>11/28/2017 21:02:42</publishTime>
+    <File Include="images/fb.png">
+      <publishTime>04/08/2018 11:58:41</publishTime>
     </File>
-    <File Include="images/Logo.png">
-      <publishTime>09/15/2017 13:26:51</publishTime>
+    <File Include="images/inst.png">
+      <publishTime>04/08/2018 11:58:41</publishTime>
+    </File>
+    <File Include="images/logo-dora.png">
+      <publishTime>04/09/2018 18:33:09</publishTime>
+    </File>
+    <File Include="images/searchicon.png">
+      <publishTime>04/11/2018 16:11:18</publishTime>
+    </File>
+    <File Include="images/vk.png">
+      <publishTime>04/08/2018 11:58:41</publishTime>
     </File>
     <File Include="packages.config">
       <publishTime>10/01/2017 09:19:28</publishTime>
@@ -341,7 +338,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>08/04/2017 12:39:22</publishTime>
     </File>
     <File Include="Views/Account/Login.cshtml">
-      <publishTime>08/04/2017 12:39:22</publishTime>
+      <publishTime>03/28/2018 22:24:11</publishTime>
     </File>
     <File Include="Views/Account/Register.cshtml">
       <publishTime>08/04/2017 12:39:22</publishTime>
@@ -362,40 +359,46 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>08/04/2017 12:39:22</publishTime>
     </File>
     <File Include="Views/Admin/Order.cshtml">
-      <publishTime>10/23/2017 09:59:26</publishTime>
+      <publishTime>05/14/2018 13:06:16</publishTime>
     </File>
     <File Include="Views/Admin/OrderDetails.cshtml">
-      <publishTime>12/11/2017 13:46:01</publishTime>
+      <publishTime>04/03/2018 17:37:47</publishTime>
     </File>
     <File Include="Views/Home/About.cshtml">
-      <publishTime>02/03/2018 14:00:39</publishTime>
+      <publishTime>04/12/2018 10:50:53</publishTime>
     </File>
     <File Include="Views/Home/Card.cshtml">
-      <publishTime>02/03/2018 14:01:08</publishTime>
+      <publishTime>04/04/2018 22:27:33</publishTime>
+    </File>
+    <File Include="Views/Home/CardPartial.cshtml">
+      <publishTime>04/26/2018 12:04:56</publishTime>
     </File>
     <File Include="Views/Home/Category.cshtml">
-      <publishTime>01/04/2018 17:48:54</publishTime>
+      <publishTime>04/30/2018 11:17:04</publishTime>
     </File>
     <File Include="Views/Home/Contact.cshtml">
-      <publishTime>12/01/2017 16:59:29</publishTime>
+      <publishTime>04/14/2018 10:31:15</publishTime>
     </File>
     <File Include="Views/Home/CreateCategory.cshtml">
-      <publishTime>12/16/2017 09:42:49</publishTime>
+      <publishTime>04/20/2018 16:20:04</publishTime>
     </File>
     <File Include="Views/Home/CreateParentCategory.cshtml">
-      <publishTime>12/15/2017 17:20:00</publishTime>
+      <publishTime>04/17/2018 13:17:14</publishTime>
     </File>
     <File Include="Views/Home/CreateProduct.cshtml">
-      <publishTime>12/22/2017 09:21:35</publishTime>
+      <publishTime>05/12/2018 16:01:29</publishTime>
     </File>
     <File Include="Views/Home/Delivery.cshtml">
-      <publishTime>11/30/2017 18:05:28</publishTime>
+      <publishTime>05/16/2018 12:20:09</publishTime>
+    </File>
+    <File Include="Views/Home/Discount.cshtml">
+      <publishTime>04/30/2018 11:17:04</publishTime>
     </File>
     <File Include="Views/Home/Guarantee.cshtml">
       <publishTime>11/30/2017 18:03:20</publishTime>
     </File>
     <File Include="Views/Home/Index.cshtml">
-      <publishTime>12/30/2017 09:37:45</publishTime>
+      <publishTime>04/30/2018 11:16:08</publishTime>
     </File>
     <File Include="Views/Home/NotFound.cshtml">
       <publishTime>10/24/2017 11:29:36</publishTime>
@@ -404,13 +407,16 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/22/2017 11:07:16</publishTime>
     </File>
     <File Include="Views/Home/OrderAproval.cshtml">
-      <publishTime>02/03/2018 14:02:57</publishTime>
+      <publishTime>04/08/2018 12:54:29</publishTime>
     </File>
     <File Include="Views/Home/OrderDetails.cshtml">
-      <publishTime>11/30/2017 16:28:08</publishTime>
+      <publishTime>04/09/2018 09:36:53</publishTime>
+    </File>
+    <File Include="Views/Home/OutStock.cshtml">
+      <publishTime>04/30/2018 12:52:09</publishTime>
     </File>
     <File Include="Views/Home/Product.cshtml">
-      <publishTime>01/05/2018 11:01:45</publishTime>
+      <publishTime>04/30/2018 10:45:28</publishTime>
     </File>
     <File Include="Views/Home/Sales.cshtml">
       <publishTime>09/12/2017 12:33:16</publishTime>
@@ -419,7 +425,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/27/2017 21:53:18</publishTime>
     </File>
     <File Include="Views/Home/Search.cshtml">
-      <publishTime>02/07/2018 08:19:51</publishTime>
+      <publishTime>04/30/2018 11:16:47</publishTime>
+    </File>
+    <File Include="Views/Home/SubCategory.cshtml">
+      <publishTime>04/30/2018 17:25:25</publishTime>
     </File>
     <File Include="Views/Manage/AddPhoneNumber.cshtml">
       <publishTime>08/04/2017 12:39:22</publishTime>
@@ -446,7 +455,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>08/04/2017 12:39:22</publishTime>
     </File>
     <File Include="Views/Shared/_Layout.cshtml">
-      <publishTime>02/03/2018 13:59:40</publishTime>
+      <publishTime>05/15/2018 20:23:32</publishTime>
     </File>
     <File Include="Views/Shared/_LoginPartial.cshtml">
       <publishTime>08/04/2017 12:39:22</publishTime>
@@ -458,7 +467,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>08/04/2017 12:38:52</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>01/05/2018 10:30:34</publishTime>
+      <publishTime>04/06/2018 09:30:01</publishTime>
     </File>
   </ItemGroup>
 </Project>

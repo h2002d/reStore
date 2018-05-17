@@ -11,6 +11,7 @@ namespace LaserArt.Models
         public int? Id { get; set; }
         public string CategoryName { get; set; }
         public int ParentId { get; set; }
+        public string ImageSource { get; set; }
         public static List<Category> GetCategories(int? id)
         {
             return CategoryDAO.getCategories(id);
